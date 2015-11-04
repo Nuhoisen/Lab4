@@ -3,5 +3,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LocalDebuggerCommandArguments>AlienGameImages/8BPimage201510213497389785.png AlienGameImages/8BPimage2015102134322446189.png AlienGameImages/8BPimage2015102133651753614.png AlienGameImages/8BPimage2015102134641493226.png AlienGameImages/spritesheet.png</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <RemoteDebuggerCommandArguments>AlienGameImages\8BPimage201510213497389785.png AlienGameImages\8BPimage2015102133012845585.png AlienGameImages\8BPimage2015102133534700500.png AlienGameImages\8BPimage2015102133651753614.png  AlienGameImages\spritesheet.png</RemoteDebuggerCommandArguments>
   </PropertyGroup>
 </Project>

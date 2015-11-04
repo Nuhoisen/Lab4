@@ -43,11 +43,12 @@ cSpriteGameLoop::~cSpriteGameLoop()
 }
 
 
-void cSpriteGameLoop::SpriteRender(SDL_Rect* clip, SDL_Texture *tempTexture, SDL_Renderer * tempRenderer,  const int tim)
+void cSpriteGameLoop::SpriteRender(SDL_Rect* clip, 
+	SDL_Texture *tempTexture, SDL_Renderer * tempRenderer,  const int tim)
 {
-	SDL_RenderClear();
-	SDL_RenderCopy(mRenderer, tempTexture, clip, nullptr);
-	SDL_RenderPresent(mRenderer);
+	SDL_RenderClear(tempRenderer);
+	SDL_RenderCopy(tempRenderer, tempTexture, clip, nullptr);
+	SDL_RenderPresent(tempRenderer);
 	SDL_Delay(tim);	
 }
 

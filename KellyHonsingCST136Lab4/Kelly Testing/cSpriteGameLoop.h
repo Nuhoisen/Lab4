@@ -5,20 +5,21 @@ Lab Number:		2
 File Name:		CST136L1
 
 Overview:
-The purpose of this program is to load a series of .png images from the cmd line
-and convert them to textures.  This is done using inheritance and derived object
-classes to represent the images.  There are regular images and there are sprites.
-This is the regular image class
+The purpose of this program is to load a series of .png images from the cmd
+line and convert them to textures.  This is done using inheritance and 
+derived object classes to represent the images.  There are regular images
+and there are sprites. This is the regular image class
 
 Input:
-Input includes the command line arguments which take the name of the file and pass it to
-the SDL library functions.
+Input includes the command line arguments which take the name of the file 
+and pass it to the SDL library functions.
 
 Output:
-Output includes the SDL window, the SDL surface, and the image.  The first 4 are generated
-using typical sdl functions from the sdl library to convert the .png images to textures.
-They are then rendered to the screen.  The last two images are sprites on one .png image.
-This image is converted to a texture and then partially rendered once to display the first
+Output includes the SDL window, the SDL surface, and the image.  The first
+4 are generated using typical sdl functions from the sdl library to convert
+the .png images to textures. They are then rendered to the screen.  
+The last two images are sprites on one .png image. This image is converted
+to a texture and then partially rendered once to display the first
 part of it, and then again once more to display the second part of it.
 ...................................................................
 DECLARATIONS
@@ -59,19 +60,22 @@ Entry: None
 Exit: None
 
 ...................................................................
-void SpriteRender(SDL_Rect* clip, SDL_Texture * tempTexture,  const int tim)
+void SpriteRender(SDL_Rect* clip, SDL_Texture * tempTexture,  const 
+int tim)
 
-Purpose:Renders Images on sprites by cutting the images to their own dimensions and then rendering those specific dimensions to the screen.
+Purpose:Renders Images on sprites by cutting the images to their own 
+dimensions and then rendering those specific dimensions to the screen.
 
-Entry:SDL_Rect* clip:Clip is an array of a  rect that holds the dimensions of a sdl rect
-SDL_Texture * tempTexture: Texture holds sprite textures 
+Entry:SDL_Rect* clip:Clip is an array of a  rect that holds the dimensions 
+of a sdl rect SDL_Texture * tempTexture: Texture holds sprite textures 
 const int tim: tim is used as a delayed time tracker
 Exit: Function returns nothing
 */
 
 #ifndef CSPRITEGAMELOOP_H
 #define CSPRITEGAMELOOP_H
-#include "cMainGame.h"
+#include <SDL.h>
+#include <SDL_image.h>
 class cSpriteGameLoop 
 {
 public:
@@ -82,9 +86,10 @@ public:
 	//Assignment Operator
 	cSpriteGameLoop & operator=(cSpriteGameLoop & opCopy);
 	//Destructor
-	virtual ~cSpriteGameLoop();
+	~cSpriteGameLoop();
 	//Sprite render method
-	void SpriteRender(SDL_Rect* clip, SDL_Texture * tempTexture, SDL_Renderer * tempRenderer,  const int tim);
+	void SpriteRender(SDL_Rect* clip, SDL_Texture * tempTexture,
+		SDL_Renderer * tempRenderer,  const int tim);
 	//Mutators
 	SDL_Rect *ReturnRect();
 	SDL_Rect *ReturnRect1();

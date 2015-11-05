@@ -124,7 +124,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="cImageTextures.cpp" />
-    <ClCompile Include="cInitialize.cpp" />
     <ClCompile Include="cMainGame.cpp" />
     <ClCompile Include="cSurfMan.cpp" />
     <ClCompile Include="cRandArray.cpp" />
@@ -133,7 +132,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cImageTextures.h" />
-    <ClInclude Include="cInitialize.h" />
     <ClInclude Include="cMainGame.h" />
     <ClInclude Include="cSurfMan.h" />
     <ClInclude Include="cRandArray.h" />

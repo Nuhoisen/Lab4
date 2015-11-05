@@ -111,35 +111,27 @@ using std::string;
 const int WIDTH = 640;
 const int HEIGHT = 480;
 
-enum KeyPressSurfaces
-{
-	IMAGE_FIRST,
-	IMAGE_SECOND,
-	IMAGE_THIRD,
-	IMAGE_FOURTH,
-	IMAGE_FIFTH,
-	IMAGE_TOTAL
-};
 
 class cSurfMan
 {
 public:
 	cSurfMan(char * argv[], int argc); //constructor
 	cSurfMan(); //default constructor
-	virtual ~cSurfMan(); //destructor//destructor
+	cSurfMan(cSurfMan & copy);
+	cSurfMan & operator=(cSurfMan & copy);
+	~cSurfMan(); //destructor
 
-
-	void beginGame(string * fileName);
-	bool Init(string * imgPaths);
-	bool LoadMedia(SDL_Texture* KeySurfaces[IMAGE_TOTAL], string * vArg);
+	void beginGame();
+	bool Init();
+	bool LoadMedia(SDL_Texture* KeySurfaces[IMAGE_TOTAL], string * path);
 
 	SDL_Texture * Loadtexture(string texturePath);
-	SDL_Texture* LoadSurface(string surfacePath);
+	SDL_Texture* LoadSurface(string  surfacePath);
 
 	bool Retry();
 	
 	void ConvertSurface(SDL_Surface * mCurrentSurface);
-	void Close(SDL_Texture * KeyPresses[IMAGE_TOTAL]);
+	void Close();
 	
 	SDL_Window* WindowGetter();
 	SDL_Renderer* RendererGetter();

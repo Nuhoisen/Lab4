@@ -17,11 +17,13 @@ cSurfMan::cSurfMan(char * argv[], int argc)
 	{
 		mTexture[i] = nullptr;
 	}
-	tempGame = nullptr;
+	tempGame = new cMainGame();
 }
+
 
 cSurfMan::cSurfMan()
 {
+	
 	files = nullptr;
 	mWindow = nullptr;
 	mScreenSurface = nullptr;
@@ -32,44 +34,73 @@ cSurfMan::cSurfMan()
 	{
 		mTexture[i] = nullptr;
 	}
-	tempGame=nullptr;
+	tempGame=new cMainGame();
+}
+
+cSurfMan::cSurfMan(cSurfMan & copy)
+{
+	copy.mRenderer = mRenderer;
+	copy.mScreenSurface = mScreenSurface;
+	copy.mWindow = mWindow;
+	copy.mStretchedSurface = mStretchedSurface;
+	for (int i = 0; i < IMAGE_TOTAL; i++)
+		copy.mTexture[i];
+	copy.mSpriteSheetTexture = mSpriteSheetTexture;
+	copy.files = files;
+	copy.tempGame = tempGame;
+}
+
+cSurfMan & cSurfMan::operator=(cSurfMan & copy)
+{
+	copy.mRenderer = mRenderer;
+	copy.mScreenSurface = mScreenSurface;
+	copy.mWindow = mWindow;
+	copy.mStretchedSurface = mStretchedSurface;
+	for (int i = 0; i < IMAGE_TOTAL; i++)
+		copy.mTexture[i];
+	copy.mSpriteSheetTexture = mSpriteSheetTexture;
+	copy.files = files;
+	copy.tempGame = tempGame;
+
+	return copy;
 }
 
 
 cSurfMan::~cSurfMan() 
 {
+	delete files;
 	mWindow = nullptr;
 	mScreenSurface = nullptr;
 	mStretchedSurface = nullptr;
 	mRenderer = nullptr;
 	mSpriteSheetTexture = nullptr;
-	
+	delete tempGame;
 }
 
 
-void cSurfMan::beginGame(string * fileName)
+void cSurfMan::beginGame()
 {
-	if (!this->Init(fileName))
+	if (!this->Init())
 	{
 		cout << "Initialization Failed\n";
 	}
 	else {
-		if (this->LoadMedia(mTexture, fileName))
+		if (!this->LoadMedia(mTexture, files))
 		{
 			cout << "failed to load";
 		}
-
 		else
 		{
-			tempGame->GameLoop(mTexture, mRenderer);
+			do{
+				tempGame->GameLoop(mTexture, mRenderer);
+			} while (!this->Retry());
 		}
+		this->Close();
 	}
 }
 
 
-
-
-bool cSurfMan::Init(string * imgPaths)
+bool cSurfMan::Init()
 {
 	bool pass = true;
 
@@ -85,7 +116,8 @@ bool cSurfMan::Init(string * imgPaths)
 			cout << "Linear Texture Filtering not enabled!";
 		}
 		 
-		mWindow = SDL_CreateWindow(imgPaths->c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
+		mWindow = SDL_CreateWindow(files->c_str(), SDL_WINDOWPOS_UNDEFINED,
+			SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
 		if (mWindow == nullptr)
 		{
 			cout << "Can't Create Window! SDL ERROR: " << SDL_GetError();
@@ -93,7 +125,8 @@ bool cSurfMan::Init(string * imgPaths)
 		}
 		else
 		{
-			mRenderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED);
+			mRenderer = SDL_CreateRenderer(mWindow, -1,
+				SDL_RENDERER_ACCELERATED);
 			if (mRenderer == nullptr)
 			{
 				cout << "Renderer Failed to be created!";
@@ -101,7 +134,8 @@ bool cSurfMan::Init(string * imgPaths)
 			}
 			else
 			{	
-				SDL_SetRenderDrawColor(mRenderer, 0xFF, 0xFF, 0xFF, 0xFF);  //RGB Opacity
+				SDL_SetRenderDrawColor(mRenderer, 0xFF, 0xFF, 
+					0xFF, 0xFF);  //RGB Opacity
 
 				int imgFlags = IMG_INIT_PNG;
 				if (!(IMG_Init(imgFlags) & imgFlags))
@@ -115,42 +149,47 @@ bool cSurfMan::Init(string * imgPaths)
 	return pass;
 }
 
-bool cSurfMan::LoadMedia(SDL_Texture *KeySurfaces[IMAGE_TOTAL], string * vArg)
+
+bool cSurfMan::LoadMedia(SDL_Texture *KeySurfaces[IMAGE_TOTAL],
+	string * path)
 {
 	bool success = true;
-	//load sprite texture here 
 	
-	
-	KeySurfaces[IMAGE_FIRST] = LoadSurface(vArg[1]); //FIRst image
-	if (KeySurfaces[IMAGE_FIRST] == nullptr)							  //Checks that the image successfully opened
+	mTexture[IMAGE_FIRST] = LoadSurface(path[1]); //First image
+	if (mTexture[IMAGE_FIRST]
+		== nullptr)//Checks that the image successfully opened
 	{
 		cout << "Failed to load default image!\n";
 		success = false;
 	}
 
-	KeySurfaces[IMAGE_SECOND] = LoadSurface(vArg[2]);	//Second image
-	if (KeySurfaces[IMAGE_SECOND] == nullptr)							//Checks that the image successfully opened
+	mTexture[IMAGE_SECOND] = LoadSurface(path[2]);	//Second image
+	if (mTexture[IMAGE_SECOND] 
+		== nullptr)	//Checks that the image successfully opened
 	{
 		cout << "Failed to load default image!\n";
 		success = false;
 	}
 
-	KeySurfaces[IMAGE_THIRD] = LoadSurface(vArg[3]); //Third image
-	if (KeySurfaces[IMAGE_THIRD] == nullptr)							  //Checks that the image successfully opened
+	mTexture[IMAGE_THIRD] = LoadSurface(path[3]); //Third image
+	if (mTexture[IMAGE_THIRD] 
+		== nullptr)  //Checks that the image successfully opened
 	{
 		cout << "Failed to load default image!\n";
 		success = false;
 	}
 
-	KeySurfaces[IMAGE_FOURTH] = LoadSurface(vArg[4]);//Third image
-	if (KeySurfaces[IMAGE_FOURTH] == nullptr)							//Checks that the image successfully opened
+	mTexture[IMAGE_FOURTH] = LoadSurface(path[4]);//Third image
+	if (mTexture[IMAGE_FOURTH]
+		== nullptr)	//Checks that the image successfully opened
 	{
 		cout << "Failed to load default image!\n";	
 		success = false;
 	}
 
-	KeySurfaces[IMAGE_FIFTH] = Loadtexture(vArg[5]);	//Fourth image
-	if (KeySurfaces[IMAGE_FIFTH] == nullptr)							//Checks that the image successfully opened
+	mTexture[IMAGE_TOTAL] = Loadtexture(path[5]);	//Fourth image
+	if (mTexture[IMAGE_TOTAL]
+		== nullptr)	//Checks that the image successfully opened
 	{
 		cout << "Failed to load default image!\n";
 		success = false;
@@ -171,12 +210,15 @@ SDL_Texture * cSurfMan::Loadtexture(string path)
 	}
 	else
 	{
-		SDL_SetColorKey(tempSurface, SDL_TRUE, SDL_MapRGB(tempSurface->format, 0, 0xFF, 0xFF));  //(format, Red,Green,Blue)
+		SDL_SetColorKey(tempSurface, SDL_TRUE, SDL_MapRGB
+			(tempSurface->format, 0, 0xFF, 0xFF));  
+		//(format, Red,Green,Blue)
 
 		tempTexture = SDL_CreateTextureFromSurface(mRenderer, tempSurface);
 		if (tempTexture == nullptr)
 		{
-			cout << "Unable to Create Texture! SDL Error:" << SDL_GetError();
+			cout << "Unable to Create Texture! SDL Error:" <<
+				SDL_GetError();
 		}
 		
 	}
@@ -201,10 +243,12 @@ SDL_Texture* cSurfMan::LoadSurface(std::string path)
 	else
 	{
 			//Convert surface to texture
-			tempTexture = SDL_CreateTextureFromSurface(mRenderer, loadedSurface);
+			tempTexture = SDL_CreateTextureFromSurface(mRenderer,
+				loadedSurface);
 			if (tempTexture == nullptr)
 			{
-				cout << "Unable to create texture from image! SDL Error:" << SDL_GetError();
+				cout << "Unable to create texture from image! SDL Error:"
+					<< SDL_GetError();
 			}
 
 			//Get rid of old loaded surfaces
@@ -251,12 +295,12 @@ bool cSurfMan::Retry()
 	}
 }
 
-void cSurfMan::Close(SDL_Texture * KeyPresses[IMAGE_TOTAL])
+void cSurfMan::Close()
 {
 	for (int i = 0; i < IMAGE_TOTAL; i++)
 	{
-		SDL_DestroyTexture(KeyPresses[i]);
-		KeyPresses[i] = nullptr;
+		SDL_DestroyTexture(mTexture[i]);
+		mTexture[i] = nullptr;
 	}
 	//destroy window and renderer
 	SDL_DestroyRenderer(mRenderer);

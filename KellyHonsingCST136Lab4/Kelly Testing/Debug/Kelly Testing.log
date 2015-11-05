@@ -1,88 +1,19 @@
-﻿Build started 11/3/2015 1:48:38 PM.
-     1>Project "C:\Users\Kelly Honsinger\Desktop\GitLab4\KellyHonsingCST136Lab4\Kelly Testing\Kelly Testing.vcxproj" on node 2 (Build target(s)).
+﻿Build started 11/3/2015 6:08:21 PM.
+     1>Project "Z:\documents\Visual Studio 2015\GitRepos\lab4\KellyHonsingCST136Lab4\Kelly Testing\Kelly Testing.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         B:\Program Files (x86)\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt cImageTextures.cpp cInitialize.cpp cMainGame.cpp cSurfMan.cpp cRandArray.cpp Source.cpp cSpriteGameLoop.cpp
-         cSpriteGameLoop.cpp
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cmaingame.h(76): error C2065: 'IMAGE_TOTAL': undeclared identifier
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cmaingame.h(82): error C2143: syntax error: missing ';' before '*'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cmaingame.h(82): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cmaingame.h(82): error C2238: unexpected token(s) preceding ';'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.cpp(48): error C2660: 'SDL_RenderClear': function does not take 0 arguments
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.cpp(49): error C2065: 'mRenderer': undeclared identifier
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.cpp(50): error C2065: 'mRenderer': undeclared identifier
-         Source.cpp
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cmaingame.h(76): error C2065: 'IMAGE_TOTAL': undeclared identifier
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\source.cpp(17): error C2065: 'IMAGE_TOTAL': undeclared identifier
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\source.cpp(19): error C2039: 'Init': is not a member of 'cImageTextures'
-         c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cimagetextures.h(82): note: see declaration of 'cImageTextures'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\source.cpp(25): error C2039: 'LoadMedia': is not a member of 'cImageTextures'
-         c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cimagetextures.h(82): note: see declaration of 'cImageTextures'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\source.cpp(34): error C2660: 'cMainGame::GameLoop': function does not take 3 arguments
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\source.cpp(35): error C2039: 'Close': is not a member of 'cImageTextures'
-         c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cimagetextures.h(82): note: see declaration of 'cImageTextures'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\source.cpp(36): error C2039: 'Retry': is not a member of 'cImageTextures'
-         c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cimagetextures.h(82): note: see declaration of 'cImageTextures'
-         cRandArray.cpp
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\crandarray.cpp(13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt cSurfMan.cpp
          cSurfMan.cpp
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(87): error C2061: syntax error: identifier 'SDL_Rect'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(89): error C2143: syntax error: missing ';' before '*'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(89): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(89): error C2238: unexpected token(s) preceding ';'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(90): error C2143: syntax error: missing ';' before '*'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(90): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(90): error C2238: unexpected token(s) preceding ';'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(93): error C3646: 'mSpriteClips': unknown override specifier
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(93): error C2143: syntax error: missing ',' before '['
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(93): error C2143: syntax error: missing ')' before ';'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(93): error C2238: unexpected token(s) preceding ';'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cmaingame.h(76): error C2065: 'IMAGE_TOTAL': undeclared identifier
-         cMainGame.cpp
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(87): error C2061: syntax error: identifier 'SDL_Rect'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(89): error C2143: syntax error: missing ';' before '*'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(89): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(89): error C2238: unexpected token(s) preceding ';'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(90): error C2143: syntax error: missing ';' before '*'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(90): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(90): error C2238: unexpected token(s) preceding ';'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(93): error C3646: 'mSpriteClips': unknown override specifier
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(93): error C2143: syntax error: missing ',' before '['
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(93): error C2143: syntax error: missing ')' before ';'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(93): error C2238: unexpected token(s) preceding ';'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cmaingame.h(76): error C2065: 'IMAGE_TOTAL': undeclared identifier
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cmaingame.cpp(18): error C2065: 'IMAGE_TOTAL': undeclared identifier
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cmaingame.cpp(26): error C2065: 'IMAGE_TOTAL': undeclared identifier
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cmaingame.cpp(28): error C2660: 'cImageTextures::Render': function does not take 2 arguments
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cmaingame.cpp(31): error C2039: 'ReturnRect': is not a member of 'cSpriteGameLoop'
-         c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(76): note: see declaration of 'cSpriteGameLoop'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cmaingame.cpp(31): error C2660: 'cSpriteGameLoop::SpriteRender': function does not take 3 arguments
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cmaingame.cpp(32): error C2039: 'ReturnRect1': is not a member of 'cSpriteGameLoop'
-         c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(76): note: see declaration of 'cSpriteGameLoop'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cmaingame.cpp(32): error C2660: 'cSpriteGameLoop::SpriteRender': function does not take 3 arguments
-         cInitialize.cpp
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(87): error C2061: syntax error: identifier 'SDL_Rect'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(89): error C2143: syntax error: missing ';' before '*'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(89): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(89): error C2238: unexpected token(s) preceding ';'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(90): error C2143: syntax error: missing ';' before '*'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(90): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(90): error C2238: unexpected token(s) preceding ';'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(93): error C3646: 'mSpriteClips': unknown override specifier
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(93): error C2143: syntax error: missing ',' before '['
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(93): error C2143: syntax error: missing ')' before ';'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cspritegameloop.h(93): error C2238: unexpected token(s) preceding ';'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cmaingame.h(76): error C2065: 'IMAGE_TOTAL': undeclared identifier
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cinitialize.h(17): error C2143: syntax error: missing ';' before '}'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cinitialize.cpp(18): error C2275: 'SDL_Texture': illegal use of this type as an expression
-         c:\users\kelly honsinger\documents\visual studio 2015\sdl\include\sdl_render.h(128): note: see declaration of 'SDL_Texture'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cinitialize.cpp(18): error C2275: 'std::string': illegal use of this type as an expression
-         b:\program files (x86)\vc\include\xstring(2603): note: see declaration of 'std::string'
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cinitialize.cpp(18): error C2660: 'cSurfMan::LoadMedia': function does not take 1 arguments
-     1>c:\users\kelly honsinger\desktop\gitlab4\kellyhonsingcst136lab4\kelly testing\cinitialize.cpp(19): error C2143: syntax error: missing ';' before '}'
-         cImageTextures.cpp
-         Generating Code...
-     1>Done Building Project "C:\Users\Kelly Honsinger\Desktop\GitLab4\KellyHonsingCST136Lab4\Kelly Testing\Kelly Testing.vcxproj" (Build target(s)) -- FAILED.
+     1>z:\documents\visual studio 2015\gitrepos\lab4\kellyhonsingcst136lab4\kelly testing\csurfman.cpp(282): warning C4715: 'cSurfMan::Retry': not all control paths return a value
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"Z:\documents\Visual Studio 2015\GitRepos\lab4\KellyHonsingCST136Lab4\Debug\Kelly Testing.exe" /INCREMENTAL /NOLOGO SDL2.lib SDL2main.lib SDL2_image.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"Z:\documents\Visual Studio 2015\GitRepos\lab4\KellyHonsingCST136Lab4\Debug\Kelly Testing.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"Z:\documents\Visual Studio 2015\GitRepos\lab4\KellyHonsingCST136Lab4\Debug\Kelly Testing.lib" /MACHINE:X86 Debug\cImageTextures.obj
+         Debug\cMainGame.obj
+         Debug\cSurfMan.obj
+         Debug\cRandArray.obj
+         Debug\Source.obj
+         Debug\cSpriteGameLoop.obj
+         Kelly Testing.vcxproj -> Z:\documents\Visual Studio 2015\GitRepos\lab4\KellyHonsingCST136Lab4\Debug\Kelly Testing.exe
+     1>Done Building Project "Z:\documents\Visual Studio 2015\GitRepos\lab4\KellyHonsingCST136Lab4\Kelly Testing\Kelly Testing.vcxproj" (Build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:03.70
+Time Elapsed 00:00:03.68

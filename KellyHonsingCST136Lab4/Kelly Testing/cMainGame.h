@@ -60,7 +60,7 @@ Exit: Function returns nothing
 #ifndef CMAINGAME_H
 #define CMAINGAME_H
 
-#include "cSpriteGameLoop.h"
+#include "cSpriteTextures.h"
 #include "cImageTextures.h"
 #include <SDL.h>
 #include <iostream>
@@ -87,7 +87,7 @@ class cMainGame
 {
 public: 
 	cMainGame();								//Constructor Declaration
-	~cMainGame();						//Destructor Declaration
+	virtual ~cMainGame();						//Destructor Declaration
 	cMainGame(cMainGame &copy);			//copy constructor
 	cMainGame & operator=(cMainGame &copy);		//Assignment Operator
 	void GameLoop(SDL_Texture * mainSurface[IMAGE_TOTAL],
@@ -97,7 +97,7 @@ private:
 	//Constant time int for rendering time delays
 	const int TIME = 500;
 
-	cSpriteGameLoop * sprite;
+	cSpriteTextures * sprite;
 	cImageTextures * image;
 
 };

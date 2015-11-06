@@ -69,8 +69,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>z:\documents\Visual Studio 2015\Development Libraries\SDL\include;$(IncludePath)</IncludePath>
-    <LibraryPath>z:\documents\Visual Studio 2015\Development Libraries\SDL\lib\win32;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Kelly Honsinger\Desktop\lab4v2\KellyHonsingCST136Lab4\SDL\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Kelly Honsinger\Desktop\lab4v2\KellyHonsingCST136Lab4\SDL\lib\win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -128,14 +128,14 @@
     <ClCompile Include="cSurfMan.cpp" />
     <ClCompile Include="cRandArray.cpp" />
     <ClCompile Include="Source.cpp" />
-    <ClCompile Include="cSpriteGameLoop.cpp" />
+    <ClCompile Include="cSpriteTextures.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cImageTextures.h" />
     <ClInclude Include="cMainGame.h" />
     <ClInclude Include="cSurfMan.h" />
     <ClInclude Include="cRandArray.h" />
-    <ClInclude Include="cSpriteGameLoop.h" />
+    <ClInclude Include="cSpriteTextures.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

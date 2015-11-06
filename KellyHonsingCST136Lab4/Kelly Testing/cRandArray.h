@@ -15,7 +15,7 @@ public:
 	string * RandNumGen(int cArg, char * vArg[]);
 
 	cRandArray();
-	~cRandArray();
+	virtual ~cRandArray();
 };
 
 #endif

@@ -8,16 +8,8 @@ using std::cin;
 
 cMainGame::cMainGame() 
 {
-	sprite = nullptr;
-	image = nullptr;
-	sprite = new cSpriteGameLoop;
+	sprite = new cSpriteTextures;
 	image = new cImageTextures;
-}
-
-cMainGame::~cMainGame() 
-{
-	delete sprite;
-	delete image;
 }
 
 cMainGame::cMainGame(cMainGame & copy)
@@ -30,7 +22,13 @@ cMainGame & cMainGame::operator=(cMainGame & copy)
 {
 	sprite = copy.sprite;
 	image = copy.image;
-	return copy;
+	return *this;
+}
+
+cMainGame::~cMainGame()
+{
+	delete sprite;
+	delete image;
 }
 
 void cMainGame::GameLoop( SDL_Texture * mainSurface[IMAGE_TOTAL],

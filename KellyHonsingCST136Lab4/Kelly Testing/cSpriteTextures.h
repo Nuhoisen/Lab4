@@ -76,17 +76,17 @@ Exit: Function returns nothing
 #define CSPRITEGAMELOOP_H
 #include <SDL.h>
 #include <SDL_image.h>
-class cSpriteGameLoop 
+class cSpriteTextures 
 {
 public:
 	
 	//Constructors
-	cSpriteGameLoop();
-	cSpriteGameLoop(cSpriteGameLoop & cpy);
+	cSpriteTextures();
+	cSpriteTextures(cSpriteTextures & cpy);
 	//Assignment Operator
-	cSpriteGameLoop & operator=(cSpriteGameLoop & opCopy);
+	cSpriteTextures & operator=(cSpriteTextures & opCopy);
 	//Destructor
-	~cSpriteGameLoop();
+	virtual ~cSpriteTextures();
 	//Sprite render method
 	void SpriteRender(SDL_Rect* clip, SDL_Texture * tempTexture,
 		SDL_Renderer * tempRenderer,  const int tim);

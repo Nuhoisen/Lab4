@@ -1,6 +1,7 @@
 //Kelly Honsinger
 #include "cSurfMan.h"
 
+
 cSurfMan::cSurfMan(char * argv[], int argc)
 {
 	files = new string[argc];
@@ -35,68 +36,71 @@ cSurfMan::cSurfMan()
 		mTexture[i] = nullptr;
 	}
 	tempGame=new cMainGame();
+	
 }
 
 cSurfMan::cSurfMan(cSurfMan & copy)
 {
-	copy.mRenderer = mRenderer;
-	copy.mScreenSurface = mScreenSurface;
-	copy.mWindow = mWindow;
-	copy.mStretchedSurface = mStretchedSurface;
+	mRenderer= copy.mRenderer;
+	mScreenSurface= copy.mScreenSurface;
+	mWindow= copy.mWindow;
+	mStretchedSurface= copy.mStretchedSurface;
 	for (int i = 0; i < IMAGE_TOTAL; i++)
-		copy.mTexture[i];
-	copy.mSpriteSheetTexture = mSpriteSheetTexture;
-	copy.files = files;
-	copy.tempGame = tempGame;
+		mTexture[i]=copy.mTexture[i];
+	mSpriteSheetTexture= copy.mSpriteSheetTexture;
+	files= copy.files;
+	tempGame= copy.tempGame;
 }
 
 cSurfMan & cSurfMan::operator=(cSurfMan & copy)
 {
-	copy.mRenderer = mRenderer;
-	copy.mScreenSurface = mScreenSurface;
-	copy.mWindow = mWindow;
-	copy.mStretchedSurface = mStretchedSurface;
+	mRenderer = copy.mRenderer;
+	mScreenSurface = copy.mScreenSurface;
+	mWindow = copy.mWindow;
+	mStretchedSurface = copy.mStretchedSurface;
 	for (int i = 0; i < IMAGE_TOTAL; i++)
-		copy.mTexture[i];
-	copy.mSpriteSheetTexture = mSpriteSheetTexture;
-	copy.files = files;
-	copy.tempGame = tempGame;
+		mTexture[i] = copy.mTexture[i];
+	mSpriteSheetTexture = copy.mSpriteSheetTexture;
+	files = copy.files;
+	tempGame = copy.tempGame;
 
-	return copy;
+	return *this;
 }
 
 
 cSurfMan::~cSurfMan() 
 {
-	delete files;
+	delete []files;
 	mWindow = nullptr;
 	mScreenSurface = nullptr;
 	mStretchedSurface = nullptr;
 	mRenderer = nullptr;
 	mSpriteSheetTexture = nullptr;
+	
 	delete tempGame;
+	tempGame = nullptr;
 }
 
 
 void cSurfMan::beginGame()
 {
-	if (!this->Init())
-	{
-		cout << "Initialization Failed\n";
-	}
-	else {
-		if (!this->LoadMedia(mTexture, files))
+	do {
+		if (!this->Init())
 		{
-			cout << "failed to load";
+			cout << "Initialization Failed\n";
 		}
-		else
-		{
-			do{
+		else {
+			if (!this->LoadMedia(mTexture, files))
+			{
+				cout << "failed to load";
+			}
+			else
+			{
 				tempGame->GameLoop(mTexture, mRenderer);
-			} while (!this->Retry());
+			}
+			this->Close();
 		}
-		this->Close();
-	}
+	} while (this->Retry());
 }
 
 
@@ -311,7 +315,7 @@ void cSurfMan::Close()
 	SDL_DestroyWindow(mWindow);
 	mWindow = nullptr;
 
-	SDL_Quit();
+	SDL_Quit(); 
 }
 
 SDL_Window * cSurfMan::WindowGetter()

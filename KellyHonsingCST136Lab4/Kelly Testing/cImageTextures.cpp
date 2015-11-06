@@ -4,19 +4,19 @@ cImageTextures::cImageTextures()
 {
 }
 
-cImageTextures::~cImageTextures()
-{
-}
-
 cImageTextures::cImageTextures(cImageTextures & imgCpy)
 {
 
 }
+
 cImageTextures& cImageTextures::operator=(cImageTextures& imgCPY)
 {
-	return imgCPY;
+	return *this;
 }
 
+cImageTextures::~cImageTextures()
+{
+}
 
 void cImageTextures::Render(SDL_Texture * tempTexture, SDL_Renderer*
 	tempRenderer, const int tim)

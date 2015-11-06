@@ -1,6 +1,6 @@
 //Kelly Honsinger
-#include "cSpriteGameLoop.h"
-cSpriteGameLoop::cSpriteGameLoop()
+#include "cSpriteTextures.h"
+cSpriteTextures::cSpriteTextures()
 {
 	
 	mSpriteClips[0].x = 0;
@@ -14,36 +14,36 @@ cSpriteGameLoop::cSpriteGameLoop()
 	mSpriteClips[1].h = hHeight;
 }
 
-cSpriteGameLoop::cSpriteGameLoop(cSpriteGameLoop & cpy)
+cSpriteTextures::cSpriteTextures(cSpriteTextures & cpy)
 {
 	
 	for (size_t i = 0; i < 2; i++)
 	{
-		cpy.mSpriteClips[i] = mSpriteClips[i];
+		mSpriteClips[i]=cpy.mSpriteClips[i];
 	}
-	cpy.hHeight = hHeight;
-	cpy.hWidth = hWidth;
+	hHeight= cpy.hHeight;
+	hWidth= cpy.hWidth;
 
 }
-cSpriteGameLoop& cSpriteGameLoop::operator=(cSpriteGameLoop & opCopy)
+cSpriteTextures& cSpriteTextures::operator=(cSpriteTextures & opCopy)
 {
 	for (size_t i = 0; i < 2; i++)
 	{
-		opCopy.mSpriteClips[i] = mSpriteClips[i];
+		mSpriteClips[i]= opCopy.mSpriteClips[i];
 	}
 
-	opCopy.hWidth= hWidth;
-	opCopy.hHeight = hHeight;
-	return opCopy;
+	hWidth= opCopy.hWidth;
+	hHeight= opCopy.hHeight;
+	return *this;
 }
-cSpriteGameLoop::~cSpriteGameLoop()
+cSpriteTextures::~cSpriteTextures()
 {
 	
 
 }
 
 
-void cSpriteGameLoop::SpriteRender(SDL_Rect* clip, 
+void cSpriteTextures::SpriteRender(SDL_Rect* clip,
 	SDL_Texture *tempTexture, SDL_Renderer * tempRenderer,  const int tim)
 {
 	SDL_RenderClear(tempRenderer);
@@ -53,12 +53,12 @@ void cSpriteGameLoop::SpriteRender(SDL_Rect* clip,
 }
 
 
-SDL_Rect * cSpriteGameLoop::ReturnRect()
+SDL_Rect * cSpriteTextures::ReturnRect()
 {
 	return &mSpriteClips[0];
 }
 
-SDL_Rect * cSpriteGameLoop::ReturnRect1()
+SDL_Rect * cSpriteTextures::ReturnRect1()
 {
 	return &mSpriteClips[1];
 }

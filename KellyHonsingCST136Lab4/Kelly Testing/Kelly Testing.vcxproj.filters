@@ -27,10 +27,10 @@
     <ClCompile Include="cRandArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="cSpriteGameLoop.cpp">
+    <ClCompile Include="cImageTextures.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="cImageTextures.cpp">
+    <ClCompile Include="cSpriteTextures.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,10 +44,10 @@
     <ClInclude Include="cRandArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="cSpriteGameLoop.h">
+    <ClInclude Include="cImageTextures.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="cImageTextures.h">
+    <ClInclude Include="cSpriteTextures.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

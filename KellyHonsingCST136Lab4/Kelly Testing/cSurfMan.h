@@ -119,7 +119,7 @@ public:
 	cSurfMan(); //default constructor
 	cSurfMan(cSurfMan & copy);
 	cSurfMan & operator=(cSurfMan & copy);
-	~cSurfMan(); //destructor
+	virtual ~cSurfMan(); //destructor
 
 	void beginGame();
 	bool Init();

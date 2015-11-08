@@ -1,17 +1,22 @@
 //Kelly Honsinger
 #include "cSpriteTextures.h"
-cSpriteTextures::cSpriteTextures()
+int i = 0;
+cSpriteTextures::cSpriteTextures(SDL_Texture * tempTexture, SDL_Renderer * tempRenderer)
 {
+	SpriteTexture = tempTexture;
+	SpriteRenderer = tempRenderer;
+	mSpriteClips[0] = new SDL_Rect;
+	mSpriteClips[0]->x = 0;
+	mSpriteClips[0]->y = 0;
+	mSpriteClips[0]->w = hWidth;
+	mSpriteClips[0]->h = hHeight;
 	
-	mSpriteClips[0].x = 0;
-	mSpriteClips[0].y = 0;
-	mSpriteClips[0].w = hWidth;
-	mSpriteClips[0].h = hHeight;
-
-	mSpriteClips[1].x = hWidth;
-	mSpriteClips[1].y = 0;
-	mSpriteClips[1].w = hWidth;
-	mSpriteClips[1].h = hHeight;
+	
+	mSpriteClips[1] = new SDL_Rect;
+	mSpriteClips[1]->x = hWidth;
+	mSpriteClips[1]->y = 0;
+	mSpriteClips[1]->w = hWidth;
+	mSpriteClips[1]->h = hHeight;
 }
 
 cSpriteTextures::cSpriteTextures(cSpriteTextures & cpy)
@@ -39,26 +44,25 @@ cSpriteTextures& cSpriteTextures::operator=(cSpriteTextures & opCopy)
 cSpriteTextures::~cSpriteTextures()
 {
 	
-
+	for (int i = 0; i < 2; i++)
+	{
+		delete[] mSpriteClips[i];
+	}
+	SpriteTexture = nullptr;
+	SpriteRenderer = nullptr;
 }
 
 
-void cSpriteTextures::SpriteRender(SDL_Rect* clip,
-	SDL_Texture *tempTexture, SDL_Renderer * tempRenderer,  const int tim)
+void cSpriteTextures::Render()
 {
-	SDL_RenderClear(tempRenderer);
-	SDL_RenderCopy(tempRenderer, tempTexture, clip, nullptr);
-	SDL_RenderPresent(tempRenderer);
-	SDL_Delay(tim);	
+	
+	SDL_RenderClear(SpriteRenderer);
+	SDL_RenderCopy(SpriteRenderer, SpriteTexture, mSpriteClips[i], nullptr);
+	SDL_RenderPresent(SpriteRenderer);
+	SDL_Delay(time);
+	i++;
 }
 
 
-SDL_Rect * cSpriteTextures::ReturnRect()
-{
-	return &mSpriteClips[0];
-}
 
-SDL_Rect * cSpriteTextures::ReturnRect1()
-{
-	return &mSpriteClips[1];
-}
+

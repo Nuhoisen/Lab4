@@ -81,18 +81,23 @@ Exit: Nothing is returned
 #define CIMAGETEXTURES_H
 #include <SDL.h>
 #include <SDL_image.h>
-class cImageTextures 
+#include "cRender.h"
+class cImageTextures  : public cRender
 {
 public:
 	//Constructors
-	cImageTextures();
+	cImageTextures(SDL_Texture * tempTexture, SDL_Renderer * tempRenderer);
 	cImageTextures(cImageTextures & imgCpy);
 	//Assignment Operator
 	cImageTextures& operator=(cImageTextures& imgCPY);
 	//Destructor
 	virtual ~cImageTextures();
 	//Render method
-	void Render(SDL_Texture* tempTexture, SDL_Renderer* tempRenderer, 
-		const int tim);
+	virtual void Render();
+
+private: 
+	SDL_Renderer * imageRenderer;
+	SDL_Texture * imageTexture;
+	const int time = 500;
 };
 #endif

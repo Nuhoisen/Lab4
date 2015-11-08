@@ -2,30 +2,10 @@
 #include "cSurfMan.h"
 
 
-cSurfMan::cSurfMan(char * argv[], int argc)
-{
-	files = new string[argc];
-	for (int count = 0; count < argc; count++)
-	{
-		files[count] = argv[count];
-	}
-	mWindow = nullptr;
-	mScreenSurface = nullptr;
-	mStretchedSurface = nullptr;
-	mRenderer = nullptr;
-	mSpriteSheetTexture = nullptr;
-	for (int i = 0; i < IMAGE_TOTAL; i++)
-	{
-		mTexture[i] = nullptr;
-	}
-	tempGame = new cMainGame();
-}
-
-
 cSurfMan::cSurfMan()
 {
 	
-	files = nullptr;
+	
 	mWindow = nullptr;
 	mScreenSurface = nullptr;
 	mStretchedSurface = nullptr;
@@ -35,7 +15,7 @@ cSurfMan::cSurfMan()
 	{
 		mTexture[i] = nullptr;
 	}
-	tempGame=new cMainGame();
+	
 	
 }
 
@@ -48,8 +28,8 @@ cSurfMan::cSurfMan(cSurfMan & copy)
 	for (int i = 0; i < IMAGE_TOTAL; i++)
 		mTexture[i]=copy.mTexture[i];
 	mSpriteSheetTexture= copy.mSpriteSheetTexture;
-	files= copy.files;
-	tempGame= copy.tempGame;
+	
+	
 }
 
 cSurfMan & cSurfMan::operator=(cSurfMan & copy)
@@ -61,8 +41,8 @@ cSurfMan & cSurfMan::operator=(cSurfMan & copy)
 	for (int i = 0; i < IMAGE_TOTAL; i++)
 		mTexture[i] = copy.mTexture[i];
 	mSpriteSheetTexture = copy.mSpriteSheetTexture;
-	files = copy.files;
-	tempGame = copy.tempGame;
+	
+	
 
 	return *this;
 }
@@ -70,41 +50,18 @@ cSurfMan & cSurfMan::operator=(cSurfMan & copy)
 
 cSurfMan::~cSurfMan() 
 {
-	delete []files;
+	
 	mWindow = nullptr;
 	mScreenSurface = nullptr;
 	mStretchedSurface = nullptr;
 	mRenderer = nullptr;
 	mSpriteSheetTexture = nullptr;
-	
-	delete tempGame;
-	tempGame = nullptr;
 }
 
 
-void cSurfMan::beginGame()
-{
-	do {
-		if (!this->Init())
-		{
-			cout << "Initialization Failed\n";
-		}
-		else {
-			if (!this->LoadMedia(mTexture, files))
-			{
-				cout << "failed to load";
-			}
-			else
-			{
-				tempGame->GameLoop(mTexture, mRenderer);
-			}
-			this->Close();
-		}
-	} while (this->Retry());
-}
 
 
-bool cSurfMan::Init()
+bool cSurfMan::Init(string * path)
 {
 	bool pass = true;
 
@@ -120,7 +77,7 @@ bool cSurfMan::Init()
 			cout << "Linear Texture Filtering not enabled!";
 		}
 		 
-		mWindow = SDL_CreateWindow(files->c_str(), SDL_WINDOWPOS_UNDEFINED,
+		mWindow = SDL_CreateWindow(path->c_str(), SDL_WINDOWPOS_UNDEFINED,
 			SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
 		if (mWindow == nullptr)
 		{
@@ -154,53 +111,55 @@ bool cSurfMan::Init()
 }
 
 
-bool cSurfMan::LoadMedia(SDL_Texture *KeySurfaces[IMAGE_TOTAL],
-	string * path)
+bool cSurfMan::LoadMedia(string * path)
 {
 	bool success = true;
-	
-	mTexture[IMAGE_FIRST] = LoadSurface(path[1]); //First image
-	if (mTexture[IMAGE_FIRST]
-		== nullptr)//Checks that the image successfully opened
+	int j = 0;
+	for (int i = 1; i < IMAGE_TOTAL; i++)
 	{
-		cout << "Failed to load default image!\n";
-		success = false;
+		
+		mTexture[j] = LoadSurface(path[i]); //First image
+		if (mTexture[j]
+			== nullptr)//Checks that the image successfully opened
+		{
+			cout << "Failed to load image!\n";
+			success = false;
+		}
+		j++;
 	}
-
-	mTexture[IMAGE_SECOND] = LoadSurface(path[2]);	//Second image
-	if (mTexture[IMAGE_SECOND] 
-		== nullptr)	//Checks that the image successfully opened
-	{
-		cout << "Failed to load default image!\n";
-		success = false;
-	}
-
-	mTexture[IMAGE_THIRD] = LoadSurface(path[3]); //Third image
-	if (mTexture[IMAGE_THIRD] 
-		== nullptr)  //Checks that the image successfully opened
-	{
-		cout << "Failed to load default image!\n";
-		success = false;
-	}
-
-	mTexture[IMAGE_FOURTH] = LoadSurface(path[4]);//Third image
-	if (mTexture[IMAGE_FOURTH]
-		== nullptr)	//Checks that the image successfully opened
-	{
-		cout << "Failed to load default image!\n";	
-		success = false;
-	}
-
-	mTexture[IMAGE_TOTAL] = Loadtexture(path[5]);	//Fourth image
-	if (mTexture[IMAGE_TOTAL]
-		== nullptr)	//Checks that the image successfully opened
-	{
-		cout << "Failed to load default image!\n";
-		success = false;
-	}
+	mTexture[j] = Loadtexture(path[5]);
 	
 	//bool returns successful 
 	return success;
+}
+
+
+SDL_Texture* cSurfMan::LoadSurface(std::string path)
+{	
+	//Texture 
+	SDL_Texture *tempTexture= nullptr;
+
+	//Load image at specified path
+	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
+	if (loadedSurface == nullptr)
+	{
+		cout << "Unable to load image, SDL Error: %s\n" << SDL_GetError();
+	}
+	else
+	{
+		//Convert surface to texture
+		tempTexture = SDL_CreateTextureFromSurface(mRenderer, loadedSurface);
+		if (tempTexture == nullptr)
+		{
+			cout << "Unable to create texture from image! SDL Error:"
+				<< SDL_GetError();
+		}
+
+			//Get rid of old loaded surfaces
+		SDL_FreeSurface(loadedSurface);
+		loadedSurface = nullptr;
+	}
+	return tempTexture;
 }
 
 SDL_Texture * cSurfMan::Loadtexture(string path)
@@ -215,7 +174,7 @@ SDL_Texture * cSurfMan::Loadtexture(string path)
 	else
 	{
 		SDL_SetColorKey(tempSurface, SDL_TRUE, SDL_MapRGB
-			(tempSurface->format, 0, 0xFF, 0xFF));  
+			(tempSurface->format, 0, 0xFF, 0xFF));
 		//(format, Red,Green,Blue)
 
 		tempTexture = SDL_CreateTextureFromSurface(mRenderer, tempSurface);
@@ -224,80 +183,11 @@ SDL_Texture * cSurfMan::Loadtexture(string path)
 			cout << "Unable to Create Texture! SDL Error:" <<
 				SDL_GetError();
 		}
-		
+
 	}
 	return tempTexture;
 }
 
-
-SDL_Texture* cSurfMan::LoadSurface(std::string path)
-{	
-	//Texture 
-	SDL_Texture *tempTexture= nullptr;
-	//create cSurfMan object to access getter from the class
-
-	
-
-	//Load image at specified path
-	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
-	if (loadedSurface == nullptr)
-	{
-		cout << "Unable to load image, SDL Error: %s\n" << SDL_GetError();
-	}
-	else
-	{
-			//Convert surface to texture
-			tempTexture = SDL_CreateTextureFromSurface(mRenderer,
-				loadedSurface);
-			if (tempTexture == nullptr)
-			{
-				cout << "Unable to create texture from image! SDL Error:"
-					<< SDL_GetError();
-			}
-
-			//Get rid of old loaded surfaces
-			SDL_FreeSurface(loadedSurface);
-			loadedSurface = nullptr;
-	}
-	return tempTexture;
-}
-
-
-
-void cSurfMan::ConvertSurface(SDL_Surface * CurrentSurface)
-{
-	SDL_Rect rectMod;
-	rectMod.x = 0;
-	rectMod.y = 0;
-	rectMod.w = WIDTH;
-	rectMod.h = HEIGHT;
-	SDL_BlitScaled(CurrentSurface, nullptr, mScreenSurface, &rectMod);
-	SDL_UpdateWindowSurface(mWindow);
-}
-
-bool cSurfMan::Retry()
-{
-	bool again = true;
-	char answer = 'x';
-	while (answer != 'N')
-	{
-		while (answer != 'Y')
-		{
-			cout << "would you like to go again(y/n)?";
-			cin >> answer;
-			answer = toupper(answer);
-			if (answer == 'N')
-			{
-				again = false;
-				return again;
-			}
-			else if (answer == 'Y')
-			{
-				return again;
-			}
-		}
-	}
-}
 
 void cSurfMan::Close()
 {
@@ -326,5 +216,11 @@ SDL_Window * cSurfMan::WindowGetter()
 SDL_Renderer * cSurfMan::RendererGetter()
 {
 	return mRenderer;
+}
+
+
+SDL_Texture * cSurfMan::TextureGetter(int i)
+{
+	return mTexture[i];		//returns the address of mTexture
 }
 

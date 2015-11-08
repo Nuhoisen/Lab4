@@ -97,7 +97,7 @@ Exit: Returns the data member
 
 #ifndef CSURFMAN_H
 #define CSURFMAN_H
-#include "cMainGame.h"
+
 
 #include <iostream>
 #include <string>
@@ -111,30 +111,36 @@ using std::string;
 const int WIDTH = 640;
 const int HEIGHT = 480;
 
+enum KeyPressSurfaces
+{
+	IMAGE_DEFAULT,
+	IMAGE_FIRST,
+	IMAGE_SECOND,
+	IMAGE_THIRD,
+	IMAGE_FOURTH,
+	IMAGE_TOTAL
+};
+
 
 class cSurfMan
 {
 public:
-	cSurfMan(char * argv[], int argc); //constructor
-	cSurfMan(); //default constructor
+	cSurfMan(); //constructor
 	cSurfMan(cSurfMan & copy);
 	cSurfMan & operator=(cSurfMan & copy);
 	virtual ~cSurfMan(); //destructor
 
-	void beginGame();
-	bool Init();
-	bool LoadMedia(SDL_Texture* KeySurfaces[IMAGE_TOTAL], string * path);
-
-	SDL_Texture * Loadtexture(string texturePath);
-	SDL_Texture* LoadSurface(string  surfacePath);
-
-	bool Retry();
 	
-	void ConvertSurface(SDL_Surface * mCurrentSurface);
+	bool Init(string * files);
+	bool LoadMedia( string * path);
+
+	SDL_Texture* LoadSurface(string surfacePath);
+	SDL_Texture * Loadtexture(string path);
 	void Close();
 	
 	SDL_Window* WindowGetter();
 	SDL_Renderer* RendererGetter();
+	SDL_Texture * TextureGetter(int i);
 private:
 	SDL_Surface* mScreenSurface; 		//surface containing window
 	SDL_Surface* mStretchedSurface;		//current surface displaying window
@@ -142,7 +148,6 @@ private:
 	SDL_Renderer* mRenderer;
 	SDL_Texture* mTexture[IMAGE_TOTAL];
 	SDL_Texture * mSpriteSheetTexture;
-	string * files;
-	cMainGame * tempGame;
+	
 };
 #endif 

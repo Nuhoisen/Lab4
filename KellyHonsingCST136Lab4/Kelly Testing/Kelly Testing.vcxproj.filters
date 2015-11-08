@@ -21,9 +21,6 @@
     <ClCompile Include="cSurfMan.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="cMainGame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="cRandArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -33,12 +30,15 @@
     <ClCompile Include="cSpriteTextures.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cGameLoop.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cKeyBoard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cSurfMan.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="cMainGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cRandArray.h">
@@ -48,6 +48,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cSpriteTextures.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cGameLoop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cKeyBoard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cRender.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

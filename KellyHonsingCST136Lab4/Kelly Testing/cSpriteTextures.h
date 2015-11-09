@@ -77,6 +77,16 @@ Exit: Function returns nothing
 #include <SDL.h>
 #include <SDL_image.h>
 #include "cRender.h"
+
+
+enum spriteTextures
+{
+	SPRITE_FIRST,
+	SPRITE_SECOND,
+	SPRITE_TOTAL
+};
+
+
 class cSpriteTextures : public cRender
 {
 public:
@@ -99,10 +109,12 @@ private:
 	SDL_Rect * mSpriteClips[2];
 	//counter
 
-	int hWidth = 750;
-	int hHeight = 586;
+	int hWidth;
+	int hHeight;
 	SDL_Texture * SpriteTexture;
 	SDL_Renderer * SpriteRenderer;
 	const int time = 500;
+	
+	int spriteIndex;
 };
 #endif

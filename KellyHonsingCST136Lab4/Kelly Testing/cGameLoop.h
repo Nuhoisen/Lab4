@@ -97,6 +97,6 @@ private:
 	cRender * renderObject[IMAGE_TOTAL];
 	cImageTextures * image;
 	cSpriteTextures * sprite;
-
+	
 };
 #endif

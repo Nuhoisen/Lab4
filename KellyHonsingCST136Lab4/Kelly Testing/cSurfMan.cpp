@@ -15,7 +15,7 @@ cSurfMan::cSurfMan()
 	{
 		mTexture[i] = nullptr;
 	}
-	
+	int mTextureIndex = 0;
 	
 }
 
@@ -78,7 +78,7 @@ bool cSurfMan::Init(string * path)
 		}
 		 
 		mWindow = SDL_CreateWindow(path->c_str(), SDL_WINDOWPOS_UNDEFINED,
-			SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
+			SDL_WINDOWPOS_UNDEFINED, WIDTH+WIDTH, HEIGHT+HEIGHT, SDL_WINDOW_SHOWN);
 		if (mWindow == nullptr)
 		{
 			cout << "Can't Create Window! SDL ERROR: " << SDL_GetError();
@@ -96,7 +96,7 @@ bool cSurfMan::Init(string * path)
 			else
 			{	
 				SDL_SetRenderDrawColor(mRenderer, 0xFF, 0xFF, 
-					0xFF, 0xFF);  //RGB Opacity
+					0xFF, 0xFF);  //(UNIT8 red, UNIT8 green, UNIT8 blue, UNIT8 Alpha)
 
 				int imgFlags = IMG_INIT_PNG;
 				if (!(IMG_Init(imgFlags) & imgFlags))
@@ -114,21 +114,18 @@ bool cSurfMan::Init(string * path)
 bool cSurfMan::LoadMedia(string * path)
 {
 	bool success = true;
-	int j = 0;
-	for (int i = 1; i < IMAGE_TOTAL; i++)
+	for (int i = 1; i <= IMAGE_TOTAL; i++)
 	{
 		
-		mTexture[j] = LoadSurface(path[i]); //First image
-		if (mTexture[j]
+		mTexture[mTextureIndex] = LoadSurface(path[i]); //First image
+		if (mTexture[mTextureIndex]
 			== nullptr)//Checks that the image successfully opened
 		{
 			cout << "Failed to load image!\n";
 			success = false;
 		}
-		j++;
-	}
-	mTexture[j] = Loadtexture(path[5]);
-	
+		mTextureIndex++;
+	}	
 	//bool returns successful 
 	return success;
 }
@@ -158,32 +155,6 @@ SDL_Texture* cSurfMan::LoadSurface(std::string path)
 			//Get rid of old loaded surfaces
 		SDL_FreeSurface(loadedSurface);
 		loadedSurface = nullptr;
-	}
-	return tempTexture;
-}
-
-SDL_Texture * cSurfMan::Loadtexture(string path)
-{
-	SDL_Texture * tempTexture = nullptr;
-
-	SDL_Surface* tempSurface = IMG_Load(path.c_str());
-	if (tempSurface == nullptr)
-	{
-		cout << "unable to load image! SDL Error:" << IMG_GetError();
-	}
-	else
-	{
-		SDL_SetColorKey(tempSurface, SDL_TRUE, SDL_MapRGB
-			(tempSurface->format, 0, 0xFF, 0xFF));
-		//(format, Red,Green,Blue)
-
-		tempTexture = SDL_CreateTextureFromSurface(mRenderer, tempSurface);
-		if (tempTexture == nullptr)
-		{
-			cout << "Unable to Create Texture! SDL Error:" <<
-				SDL_GetError();
-		}
-
 	}
 	return tempTexture;
 }

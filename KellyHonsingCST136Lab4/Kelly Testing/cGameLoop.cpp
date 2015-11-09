@@ -62,6 +62,8 @@ void cGameLoop::BeginGame()
 				renderObject[4] = new cSpriteTextures(TextureGetter(4), RendererGetter());
 				
 				this->AutoGameLoop();
+
+				this->ControlledGameLoop();
 			}
 			this->Close();
 		}
@@ -91,8 +93,67 @@ void cGameLoop::AutoGameLoop()
 
 void cGameLoop::ControlledGameLoop()
 {
-	
+	SDL_Event loop;
+	bool quit = false;
+	int index = 0;
+	renderObject[index]->Render();
+	while (!quit)
+	{
+		while (SDL_PollEvent(&loop) != 0)
+		{
+			if (loop.type == SDL_KEYDOWN && index <= 0)
+			{
+				index = 0;
+				switch (loop.key.keysym.sym)
+				{
+				case SDLK_RIGHT:
+					index++;
+					break;
+				case SDLK_LEFT:
+					break;
+				default:
+					break;
+				}
+			}
+			else if (loop.type == SDL_KEYDOWN && index >= 3)
+			{
+				index = 3;
+				switch (loop.key.keysym.sym)
+				{
+				case SDLK_RIGHT:
+					break;
+				case SDLK_LEFT:
+					index--;
+					break;
+				default:
+					break;
+				}
+			}
+			else if (loop.type == SDL_KEYDOWN)
+			{
+				switch (loop.key.keysym.sym)
+				{
+				case SDLK_RIGHT:
+					index++;
+					break;
+				case SDLK_LEFT:
+					index--;
+					break;
+				default:
+					break;
+				}
+			}
+			else if (loop.type == SDL_QUIT)
+			{
+				quit = true;
+			}
+		}
+		renderObject[index]->Render();
+	}
 }
+
+	
+
 
 
 bool cGameLoop::Retry()

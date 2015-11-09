@@ -3,6 +3,9 @@
 int i = 0;
 cSpriteTextures::cSpriteTextures(SDL_Texture * tempTexture, SDL_Renderer * tempRenderer)
 {
+	hWidth = 775;
+	hHeight = 586;
+	spriteIndex = 0;
 	SpriteTexture = tempTexture;
 	SpriteRenderer = tempRenderer;
 	mSpriteClips[0] = new SDL_Rect;
@@ -22,7 +25,7 @@ cSpriteTextures::cSpriteTextures(SDL_Texture * tempTexture, SDL_Renderer * tempR
 cSpriteTextures::cSpriteTextures(cSpriteTextures & cpy)
 {
 	
-	for (size_t i = 0; i < 2; i++)
+	for (size_t i = 0; i < SPRITE_TOTAL; i++)
 	{
 		mSpriteClips[i]=cpy.mSpriteClips[i];
 	}
@@ -32,7 +35,7 @@ cSpriteTextures::cSpriteTextures(cSpriteTextures & cpy)
 }
 cSpriteTextures& cSpriteTextures::operator=(cSpriteTextures & opCopy)
 {
-	for (size_t i = 0; i < 2; i++)
+	for (size_t i = 0; i < SPRITE_TOTAL; i++)
 	{
 		mSpriteClips[i]= opCopy.mSpriteClips[i];
 	}
@@ -44,7 +47,7 @@ cSpriteTextures& cSpriteTextures::operator=(cSpriteTextures & opCopy)
 cSpriteTextures::~cSpriteTextures()
 {
 	
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i <SPRITE_TOTAL; i++)
 	{
 		delete[] mSpriteClips[i];
 	}
@@ -57,10 +60,10 @@ void cSpriteTextures::Render()
 {
 	
 	SDL_RenderClear(SpriteRenderer);
-	SDL_RenderCopy(SpriteRenderer, SpriteTexture, mSpriteClips[i], nullptr);
+	SDL_RenderCopy(SpriteRenderer, SpriteTexture, mSpriteClips[spriteIndex], nullptr);
 	SDL_RenderPresent(SpriteRenderer);
 	SDL_Delay(time);
-	i++;
+	spriteIndex++;
 }
 
 

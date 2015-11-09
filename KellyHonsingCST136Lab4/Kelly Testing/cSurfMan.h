@@ -111,7 +111,7 @@ using std::string;
 const int WIDTH = 640;
 const int HEIGHT = 480;
 
-enum KeyPressSurfaces
+enum IMAGE_COUNT
 {
 	IMAGE_DEFAULT,
 	IMAGE_FIRST,
@@ -135,7 +135,7 @@ public:
 	bool LoadMedia( string * path);
 
 	SDL_Texture* LoadSurface(string surfacePath);
-	SDL_Texture * Loadtexture(string path);
+	
 	void Close();
 	
 	SDL_Window* WindowGetter();
@@ -148,6 +148,6 @@ private:
 	SDL_Renderer* mRenderer;
 	SDL_Texture* mTexture[IMAGE_TOTAL];
 	SDL_Texture * mSpriteSheetTexture;
-	
+	int mTextureIndex;
 };
 #endif 

@@ -4,19 +4,15 @@
 
 cSurfMan::cSurfMan()
 {
-	
-	
 	mWindow = nullptr;
 	mScreenSurface = nullptr;
 	mStretchedSurface = nullptr;
 	mRenderer = nullptr;
 	mSpriteSheetTexture = nullptr;
-	for (int i = 0; i < IMAGE_TOTAL; i++)
+	for (int i = 0; i < PATH_TOTAL; i++)
 	{
 		mTexture[i] = nullptr;
 	}
-	int mTextureIndex = 0;
-	
 }
 
 cSurfMan::cSurfMan(cSurfMan & copy)
@@ -25,11 +21,9 @@ cSurfMan::cSurfMan(cSurfMan & copy)
 	mScreenSurface= copy.mScreenSurface;
 	mWindow= copy.mWindow;
 	mStretchedSurface= copy.mStretchedSurface;
-	for (int i = 0; i < IMAGE_TOTAL; i++)
+	for (int i = 0; i < PATH_TOTAL; i++)
 		mTexture[i]=copy.mTexture[i];
-	mSpriteSheetTexture= copy.mSpriteSheetTexture;
-	
-	
+	mSpriteSheetTexture= copy.mSpriteSheetTexture;	
 }
 
 cSurfMan & cSurfMan::operator=(cSurfMan & copy)
@@ -38,19 +32,16 @@ cSurfMan & cSurfMan::operator=(cSurfMan & copy)
 	mScreenSurface = copy.mScreenSurface;
 	mWindow = copy.mWindow;
 	mStretchedSurface = copy.mStretchedSurface;
-	for (int i = 0; i < IMAGE_TOTAL; i++)
+	for (int i = 0; i < PATH_TOTAL; i++)
 		mTexture[i] = copy.mTexture[i];
 	mSpriteSheetTexture = copy.mSpriteSheetTexture;
-	
-	
 
 	return *this;
 }
 
 
 cSurfMan::~cSurfMan() 
-{
-	
+{	
 	mWindow = nullptr;
 	mScreenSurface = nullptr;
 	mStretchedSurface = nullptr;
@@ -78,7 +69,7 @@ bool cSurfMan::Init(string * path)
 		}
 		 
 		mWindow = SDL_CreateWindow(path->c_str(), SDL_WINDOWPOS_UNDEFINED,
-			SDL_WINDOWPOS_UNDEFINED, WIDTH+WIDTH, HEIGHT+HEIGHT, SDL_WINDOW_SHOWN);
+			SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
 		if (mWindow == nullptr)
 		{
 			cout << "Can't Create Window! SDL ERROR: " << SDL_GetError();
@@ -113,18 +104,18 @@ bool cSurfMan::Init(string * path)
 
 bool cSurfMan::LoadMedia(string * path)
 {
+	int textureIndex = 0;
 	bool success = true;
-	for (int i = 1; i <= IMAGE_TOTAL; i++)
-	{
-		
-		mTexture[mTextureIndex] = LoadSurface(path[i]); //First image
-		if (mTexture[mTextureIndex]
+	for (int i = 1; i <= PATH_TOTAL; i++)
+	{	
+		mTexture[textureIndex] = LoadSurface(path[i]); //First image
+		if (mTexture[textureIndex]
 			== nullptr)//Checks that the image successfully opened
 		{
 			cout << "Failed to load image!\n";
 			success = false;
 		}
-		mTextureIndex++;
+		textureIndex++;
 	}	
 	//bool returns successful 
 	return success;
@@ -162,7 +153,7 @@ SDL_Texture* cSurfMan::LoadSurface(std::string path)
 
 void cSurfMan::Close()
 {
-	for (int i = 0; i < IMAGE_TOTAL; i++)
+	for (int i = 0; i < PATH_TOTAL; i++)
 	{
 		SDL_DestroyTexture(mTexture[i]);
 		mTexture[i] = nullptr;

@@ -82,6 +82,16 @@ Exit: Nothing is returned
 #include <SDL.h>
 #include <SDL_image.h>
 #include "cRender.h"
+
+enum IMAGE_COUNT
+{
+	IMAGE_FIRST,
+	IMAGE_SECOND,
+	IMAGE_THIRD,
+	IMAGE_FOURTH,
+	IMAGE_TOTAL
+};
+
 class cImageTextures  : public cRender
 {
 public:

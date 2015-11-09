@@ -4,7 +4,6 @@ cImageTextures::cImageTextures(SDL_Texture * tempTexture, SDL_Renderer * tempRen
 {
 	imageTexture= tempTexture;
 	imageRenderer = tempRenderer;
-
 }
 
 cImageTextures::cImageTextures(cImageTextures & imgCpy)

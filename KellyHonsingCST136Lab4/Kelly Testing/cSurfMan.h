@@ -111,14 +111,14 @@ using std::string;
 const int WIDTH = 640;
 const int HEIGHT = 480;
 
-enum IMAGE_COUNT
+enum PATH_COUNT
 {
-	IMAGE_DEFAULT,
-	IMAGE_FIRST,
-	IMAGE_SECOND,
-	IMAGE_THIRD,
-	IMAGE_FOURTH,
-	IMAGE_TOTAL
+	PATH_DEFAULT,
+	PATH_FIRST,
+	PATH_SECOND,
+	PATH_THIRD,
+	PATH_FOURTH,
+	PATH_TOTAL
 };
 
 
@@ -146,8 +146,7 @@ private:
 	SDL_Surface* mStretchedSurface;		//current surface displaying window
 	SDL_Window* mWindow;
 	SDL_Renderer* mRenderer;
-	SDL_Texture* mTexture[IMAGE_TOTAL];
+	SDL_Texture* mTexture[PATH_TOTAL];
 	SDL_Texture * mSpriteSheetTexture;
-	int mTextureIndex;
 };
 #endif 

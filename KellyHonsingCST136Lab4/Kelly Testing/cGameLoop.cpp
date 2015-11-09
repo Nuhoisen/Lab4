@@ -13,7 +13,7 @@ cGameLoop::cGameLoop(char *argv[], int argc)
 	{
 		files[count] = argv[count];
 	}
-	
+	index = 0;
 }
 cGameLoop::cGameLoop()
 {
@@ -55,7 +55,7 @@ void cGameLoop::BeginGame()
 			}
 			else
 			{
-				for (int i = 0; i < IMAGE_TOTAL-1; i++)
+				for (int i = 0; i < IMAGE_TOTAL; i++)
 				{
 					renderObject[i] = new cImageTextures(TextureGetter(i), RendererGetter());
 				}
@@ -79,14 +79,14 @@ void cGameLoop::AutoGameLoop()
 
 	
 	//render sprites  
-	for (int i = 0; i < IMAGE_TOTAL-1; i++)
+	for (int i = 0; i < IMAGE_TOTAL; i++)
 	{
 		renderObject[i]->Render();
 			
 	}
 	
-	renderObject[4]->Render();
-	renderObject[4]->Render();
+	renderObject[IMAGE_TOTAL]->Render();
+	renderObject[IMAGE_TOTAL]->Render();
 	
 }
 
@@ -95,15 +95,14 @@ void cGameLoop::ControlledGameLoop()
 {
 	SDL_Event loop;
 	bool quit = false;
-	int index = 0;
 	renderObject[index]->Render();
 	while (!quit)
 	{
 		while (SDL_PollEvent(&loop) != 0)
 		{
-			if (loop.type == SDL_KEYDOWN && index <= 0)
+			if (loop.type == SDL_KEYDOWN && index <= IMAGE_FIRST)
 			{
-				index = 0;
+				index = IMAGE_FIRST;
 				switch (loop.key.keysym.sym)
 				{
 				case SDLK_RIGHT:
@@ -115,9 +114,9 @@ void cGameLoop::ControlledGameLoop()
 					break;
 				}
 			}
-			else if (loop.type == SDL_KEYDOWN && index >= 3)
+			else if (loop.type == SDL_KEYDOWN && index >= IMAGE_FOURTH)
 			{
-				index = 3;
+				index = IMAGE_FOURTH;
 				switch (loop.key.keysym.sym)
 				{
 				case SDLK_RIGHT:

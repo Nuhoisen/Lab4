@@ -79,7 +79,7 @@ Exit: Function returns nothing
 #include "cRender.h"
 
 
-enum spriteTextures
+enum SPRITE_COUNT
 {
 	SPRITE_FIRST,
 	SPRITE_SECOND,

@@ -86,8 +86,8 @@ bool cSurfMan::Init(string * path)
 			}
 			else
 			{	
-				SDL_SetRenderDrawColor(mRenderer, 0xFF, 0xFF, 
-					0xFF, 0xFF);  //(UNIT8 red, UNIT8 green, UNIT8 blue, UNIT8 Alpha)
+				//SDL_SetRenderDrawColor(mRenderer, 0x00, 0x00, 
+				//	0x00, 0x00);  //(UNIT8 red, UNIT8 green, UNIT8 blue, UNIT8 Alpha)
 
 				int imgFlags = IMG_INIT_PNG;
 				if (!(IMG_Init(imgFlags) & imgFlags))

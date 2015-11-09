@@ -108,6 +108,7 @@ public:
 private: 
 	SDL_Renderer * imageRenderer;
 	SDL_Texture * imageTexture;
-	const int time = 500;
+	const int time = 1;
+	SDL_Rect * imageRect;
 };
 #endif

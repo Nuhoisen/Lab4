@@ -1,23 +1,20 @@
-/*Author:			Kelly Honsinger
-Date Created:		10//10/15
-Last Mod Date:		10/12/15
-Lab Number:		2
-File Name:		CST136L1
+/*Kelly Honsinger
+Date Created:10/18/2015
+Last Modification Date 11/9/2015
+Lab Number: 5
+File Name: cGameLoop.h
+-----------------------------------------------------------------------------
 
-Overview:
-The purpose of this program is to display a series of .bmp images and make them interact 
-with the keyboard.  If the up key is pressed a certain image appears on screen.  Same with 
-the down, right, and left keys. They do this by using a SDL event counter which keeps 
-processing until the window is closed.
+Class:cSurfMan
+	This is the abstract base class.  It's never instantiated and it's used by it's child class: cGameLoop.
+	Its methods iniate the SDL libraries and assign the image directories to textures so that they can be rendered later.
 
-Input:
-Input includes the command line arguments which take the name of the files and pass it to
-the SDL library functions.
+Constructors:
+cSurfMan(cSurfMan &copy);				Copy constructor
+cSurfMan & operator=(cSurfMan &copy);	Assignment Operator
 
-Output:
-Output includes images on the screen that correspond to certain keys.  
 .........................................................................................
-DECLARATIONS
+CONSTRUCTOR & DESTRUCTOR
 .........................................................................................
 cSurfMan()
 
@@ -36,8 +33,9 @@ Entry:None
 
 Exit:None
 ..........................................................................................
-
-bool Init()
+METHODS
+..........................................................................................
+bool Init(string * files);
 
 Purpose:Initializes the program by checking for the SDL Library files and then
 constructing a window that will hold the image.
@@ -48,7 +46,7 @@ arguments, and in this case the image file's directory and name.
 Exit: bool pass: is a variable that returns true if everything succeeds in the method.
 ...........................................................................................
 
-bool LoadMedia()
+bool LoadMedia( string * path);
 
 Purpose:Loads the appropriate Bmp file to correspond with the correct key. Uses an enum to 
 simplify the data.
@@ -58,26 +56,16 @@ Entry: Takes input from an pointer to enum array.
 Exit: Returns a bool to check that all the files were opened properly
 ...........................................................................................
 
-SDL_Surface* LoadSurface(std::string)
+SDL_Texture * LoadSurface(string surfacePath);
 
 Purpose: Function executed within LoadMedia function that takes the file directory and
-assigns it to the right pointer enum array.
+assigns it to the right enum array path.
 
 Entry: Takes the image directory in the form of a string.
 
-Exit: Returns the image in the SDL_Surface pointer.
+Exit: Returns SDL_Texture pointer.
 ..........................................................................................
-bool Retry()
-
-Purpose:Prompts the user if they want to go again(emerging game loop).
-
-Entry: char answer: single character that the user enters.  'y' will execute the loop again, while
-'n' will end it.
-
-Exit:bool again: checks whether the user wants to go again or not.  If so
-it will trigger the main's while loop to execute again. 
-..........................................................................................
-void Close(SDL_Surface * KeyPresses[KEY_PRESS_SURFACE_TOTAL])
+void Close();
 
 Purpose: Clears the memory of all data that was initialized during the program run.
 
@@ -85,19 +73,29 @@ Entry: none
 
 Exit: none
 ...........................................................................................
-SDL_Window* WindowGetter()
+MUTATORS:
+...........................................................................................
+SDL_Renderer * RendererGetter();
 
 Purpose: Getter that retrieves the window data member
 
 Entry: None
 
-Exit: Returns the data member
+Exit: Returns the window member
+...........................................................................................
+SDL_Texture * TextureGetter(int i);
+
+Purpose: Getter that retrieves the window data member
+
+Entry: int index; index of texture needed
+
+Exit: Returns the window member
+...........................................................................................
 */
 
 
 #ifndef CSURFMAN_H
 #define CSURFMAN_H
-
 
 #include <iostream>
 #include <string>
@@ -110,8 +108,8 @@ using std::string;
 
 const int WIDTH = 640;
 const int HEIGHT = 480;
-
-enum PATH_COUNT
+//ENUM
+enum PATH_COUNT	//keeps count of image paths
 {
 	PATH_DEFAULT,
 	PATH_FIRST,
@@ -121,32 +119,25 @@ enum PATH_COUNT
 	PATH_TOTAL
 };
 
-
 class cSurfMan
 {
 public:
-	cSurfMan(); //constructor
-	cSurfMan(cSurfMan & copy);
-	cSurfMan & operator=(cSurfMan & copy);
-	virtual ~cSurfMan(); //destructor
-
-	
-	bool Init(string * files);
-	bool LoadMedia( string * path);
-
-	SDL_Texture* LoadSurface(string surfacePath);
-	
-	void Close();
-	
-	SDL_Window* WindowGetter();
-	SDL_Renderer* RendererGetter();
-	SDL_Texture * TextureGetter(int i);
+	//CONSTRUCTORS
+	cSurfMan();								//constructor
+	cSurfMan(cSurfMan & copy);				//copy constructor
+	cSurfMan & operator=(cSurfMan & copy);	//assignment operator
+	virtual ~cSurfMan();					//destructor
+	//METHODS
+	bool Init(string * files);				//initializes
+	bool LoadMedia( string * path);			//loads media
+	SDL_Texture * LoadSurface(string surfacePath);//loads path surface
+	void Close();							//gets rid of SDL window, renderer, and textures.
+	//MUTATORS
+	SDL_Renderer * RendererGetter();		//returns renderer
+	SDL_Texture * TextureGetter(int index);	//returns texture
 private:
-	SDL_Surface* mScreenSurface; 		//surface containing window
-	SDL_Surface* mStretchedSurface;		//current surface displaying window
-	SDL_Window* mWindow;
-	SDL_Renderer* mRenderer;
-	SDL_Texture* mTexture[PATH_TOTAL];
-	SDL_Texture * mSpriteSheetTexture;
+	SDL_Window * mWindow;					//WINDOW
+	SDL_Renderer * mRenderer;				//RENDERER
+	SDL_Texture * mTexture[PATH_TOTAL];		//array of textures
 };
 #endif 

@@ -1,92 +1,70 @@
-/*Author:		Kelly Honsinger
-Date Created:	10/28/15
-Last Mod Date:	11/2/15
-Lab Number:		2
-File Name:		CST136L1
+/*Kelly Honsinger
+Date Created:10/18/2015
+Last Modification Date 11/9/2015
+Lab Number: 5
+File Name: cGameLoop.h
+-----------------------------------------------------------------------------
 
-Overview:
-The purpose of this program is to load a series of .png images from the cmd 
-line and convert them to textures.  This is done using inheritance and
-derived object classes to represent the images.  There are regular images
-and there are sprites. This is the regular image class
+Class:cMainGame
+	Child class of abstract base class: cSurfMan.  It implements it's functions and uses its data members.
+	It's also the class used to start the game from the main.
 
-Input:
-Input includes the command line arguments which take the name of the file
-and pass it to the SDL library functions.
+Constructors: 
+	cGameLoop();	default	constructor:
+		{
+		string * files;
+		cRender * renderObject[IMAGE_TOTAL];
+		cImageTextures * image;
+		cspriteTextures * sprite;
+		int index;
+		ALL INITIALIZED TO NULL.
+		}
+	cGameLoop(char *argv[], int argc);		Constructor takes command line arguments
+	virtual ~cGameLoop();					virtual destructor
+	cGameLoop(cGameLoop &copy);				Copy constructor
+	cGameLoop & operator=(cGameLoop &copy);	Assignment Operator
 
-Output:
-Output includes the SDL window, the SDL surface, and the image.  The first
-4 are generated using typical sdl functions from the sdl library to convert
-the .png images to textures. They are then rendered to the screen.  The
-last two images are sprites on one .png image. This image is converted to 
-a texture and then partially rendered once to display the first part of it,
-and then again once more to display the second part of it.
-...................................................................
-DECLARATIONS
-------------
-cMainGame()
+------------------------------------------------------------------------------
+Mutators: NONE
 
-Purpose:Class contructor; Initialize the class' private data members.
-
-Entry: None
-
-Exit: Set it all to NULL
-
-...................................................................
-~cMainGame()
-
-Purpose:Class destructor.
-
-Entry: None
-
-Exit: None
-
-...................................................................
-void GameLoop(SDL_Texture * mainSurface[IMAGE_TOTAL], cSpriteGameLoop * 
-tempSprite, cImageTextures* tempImage)
-
-Purpose: Initates the rendering of either the regurlar images or the
-sprites.  It does this by calling their respective functions from its body.
-
-Entry: SDL_Texture * mainSurface[IMAGE_TOTAL]:This is a series of textures
-that are passed via the cmd line args. cSpriteGameLoop * tempSprite: 
-Contains a sprite object so that the sprite object can call its render 
-function. cImageTextures* tempImage: Contains a image object so that the 
-image object can call its render function.
-
-
-Exit: Function returns nothing
+Methods:
+	void BeginGame();						
+		This method iniates the game.
+	
+	void AutoGameLoop();
+		This method iniates the first game loop which is the automatic display of images
+	
+	void ControlledGameLoop();
+		This method iniates the games second loop which is user controlled.
+	
+	bool Retry();
+		This method asks the user if they want to go again
+------------------------------------------------------------------------------
 */
 #ifndef CMAINGAME_H
 #define CMAINGAME_H
-
 
 #include <SDL.h>
 #include <iostream>
 #include "cSurfMan.h"
 #include "cRender.h"
 #include "cImageTextures.h"
-#include "cSpriteTextures.h"
-/* Class:cMainGame
+#include "cspriteTextures.h"
 
-Constructors:
-cTime(): Window, ScreenSurface, and Image are initialized to null.
-
-Methods: */
-
-
+using std::cout;
+using std::cin;
 
 class cGameLoop  :public cSurfMan
 {
 public: 
+	//CONSTRUCTORS
 	cGameLoop();							//Constructor Declaration
 	cGameLoop(char *argv[], int argc);		//explicitly defined constructor
 	virtual ~cGameLoop();					//Destructor Declaration
 	cGameLoop(cGameLoop &copy);				//copy constructor
 	cGameLoop & operator=(cGameLoop &copy);	//Assignment Operator
-	
+	//METHODS
 	void BeginGame();						
-	
 	void AutoGameLoop();
 	void ControlledGameLoop();
 	bool Retry();
@@ -96,7 +74,7 @@ private:
 	string * files;
 	cRender * renderObject[IMAGE_TOTAL];
 	cImageTextures * image;
-	cSpriteTextures * sprite;
+	cSpriteTextures  * sprite;
 	int index;
 };
 #endif

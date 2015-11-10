@@ -1,86 +1,41 @@
-/*Author:		Kelly Honsinger
-Date Created:	10/28/15
-Last Mod Date:	11/2/15
-Lab Number:		2
-File Name:		CST136L1
+/*Kelly Honsinger
+Date Created:10/18/2015
+Last Modification Date 11/9/2015
+Lab Number: 5
+File Name: cImageTextures.h
+-----------------------------------------------------------------------------
 
-Overview:
-The purpose of this program is to load a series of .png images from the cmd
-line and convert them to textures.  This is done using inheritance and 
-derived object classes to represent the images.  There are regular images 
-and there are sprites. This is the regular image class
+Class:cImageTextures
+	Child class of cRender. Will be instantiated and implemented
+Constructors:
+cImageTextures();	default	constructor:
+{
+SDL_Renderer * imageRenderer;
+SDL_Texture * imageTexture;
+const int TIME = 2;
+SDL_Rect * imageRect;
+const int RENDERHEIGHT = 480;
+const int RENDERWIDTH= 640;
+}
+cImageTextures(SDL_Texture * tempTexture, SDL_Renderer * tempRenderer);  //Constructor
+cImageTextures(cImageTextures & imgCpy);  //CopyConstructor
 
-Input:
-Input includes the command line arguments which take the name of the file 
-and pass it to the SDL library functions.
+cImageTextures& operator=(cImageTextures & imgCPY);  //Assignment Operator
 
-Output:
-Output includes the SDL window, the SDL surface, and the image.  The first 
-4 are generated using typical sdl functions from the sdl library to convert
-the .png images to textures.They are then rendered to the screen.  
-The last two images are sprites on one .png image.This image is converted
-to a texture and then partially rendered once to display the first
-part of it, and then again once more to display the second part of it.
-...................................................................
-DECLARATIONS
-------------
-cKeyBoard()
+virtual ~cImageTextures();   //Destructor
 
-Purpose:Class contructor; Initialize the class' private data members.
+------------------------------------------------------------------------------
+Mutators: NONE
 
-Entry: None
-
-Exit: Set it all to NULL
-
-...................................................................
-~cKeyBoard()
-
-Purpose:Class destructor.
-
-Entry: None
-
-Exit: None
-
-...................................................................
-
-cImageTextures(cImageTextures & imgCpy)
-
-Purpose:Copy Constructor. (Here to follow OCCF)
-
-Entry: copy class object is passed by reference.
-
-Exit: None. There are no data members
-
-...................................................................
-cImageTextures& operator=(cImageTextures& imgCPY)
-
-Purpose:Assignment Operator. (Here to follow OCCF)
-
-Entry: copy class object is passed by reference.
-
-Exit: None. There are no data members.
-
-...................................................................
-
-void Render(SDL_Texture *tempTexture,  const int tim)
-
-Purpose: This method is copys the texture to the render and then presents 
-it to screen.
-
-Entry:  SDL_Texture *tempTexture: Texture that was orignally .png image. 
-Its dimensions are set to be rendered.
-const int tim: const int represents time to present the textures to the
-screen. In this case it's half a second
-
-Exit: Nothing is returned
-
-...................................................................
+Methods:
+virtual void Render();
+	Virtual method that inherits from PVBC: cRender
+------------------------------------------------------------------------------
 */
 
 #ifndef CIMAGETEXTURES_H
 #define CIMAGETEXTURES_H
-#include <SDL.h>
-#include <SDL_image.h>
+
 #include "cRender.h"
 
 enum IMAGE_COUNT
@@ -99,16 +54,18 @@ public:
 	cImageTextures(SDL_Texture * tempTexture, SDL_Renderer * tempRenderer);
 	cImageTextures(cImageTextures & imgCpy);
 	//Assignment Operator
-	cImageTextures& operator=(cImageTextures& imgCPY);
+	cImageTextures& operator=(cImageTextures & imgCPY);
 	//Destructor
 	virtual ~cImageTextures();
 	//Render method
 	virtual void Render();
 
 private: 
-	SDL_Renderer * imageRenderer;
-	SDL_Texture * imageTexture;
-	const int time = 1;
-	SDL_Rect * imageRect;
+	SDL_Renderer * imageRenderer;	//renderer
+	SDL_Texture * imageTexture;		//texture
+	const int TIME = 2;				//delay
+	SDL_Rect * imageRect;			//renderer cliping size
+	const int RENDERHEIGHT = 480;	//renderer height
+	const int RENDERWIDTH= 640;		//renderer width
 };
 #endif

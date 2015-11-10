@@ -1,39 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="cImageTextures" Collapsed="true">
-    <Position X="9.25" Y="5.5" Width="1.5" />
+    <Position X="7.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgABAgAAAAQAA=</HashCode>
+      <HashCode>AAAQAAAAAAAEAAAAAEAAAAAAAQAAAAAgEBAgAAAAQAA=</HashCode>
       <FileName>cImageTextures.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="cMainGame" Collapsed="true">
-    <Position X="12.25" Y="4.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAERAgAABAAAAgAAAAAAA=</HashCode>
-      <FileName>cMainGame.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="cSpriteGameLoop" Collapsed="true">
-    <Position X="6.75" Y="4.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AiAAAABAAAAAAAAABEAAAAAAAACAAgBAAAAgAAAAAAA=</HashCode>
-      <FileName>cSpriteGameLoop.h</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="cSurfMan" Collapsed="true">
-    <Position X="14.25" Y="4.25" Width="1.5" />
+    <Position X="12.75" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BhABQAAAAAAAAABAEBQAAAgQAAAECAQAAAAigACAIAA=</HashCode>
+      <HashCode>BgAAEAAAAAAAAABAAAAAAAAQAAAECAAAAAAiAACAIAA=</HashCode>
       <FileName>cSurfMan.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Enum Name="KeyPressSurfaces" Collapsed="true">
-    <Position X="9.5" Y="4.25" Width="1.5" />
+  <Class Name="cRender" Collapsed="true">
+    <Position X="9.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAIAAAQAAAAAAAABAAAAAACAQAAAAAAAAgAAA=</HashCode>
-      <FileName>cMainGame.h</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>cRender.h</FileName>
     </TypeIdentifier>
-  </Enum>
+  </Class>
+  <Class Name="cSpriteTextures" Collapsed="true">
+    <Position X="10.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAABAACAAACAAAAAAAEAAAQCAAABAABAgAAgAAAA=</HashCode>
+      <FileName>cSpriteTextures.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cGameLoop" Collapsed="true">
+    <Position X="12.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEBAAABAAAAwAAAAERAAAAAAAAAggEABCAA=</HashCode>
+      <FileName>cGameLoop.h</FileName>
+    </TypeIdentifier>
+  </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

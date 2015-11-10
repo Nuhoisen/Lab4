@@ -1,120 +1,69 @@
-/*Author:		Kelly Honsinger
-Date Created:	10/28/15
-Last Mod Date:	11/2/15
-Lab Number:		2
-File Name:		CST136L1
+/*Kelly Honsinger
+Date Created:10/18/2015
+Last Modification Date 11/9/2015
+Lab Number: 5
+File Name: cSpriteTextures .h
+-----------------------------------------------------------------------------
 
-Overview:
-The purpose of this program is to load a series of .png images from the cmd
-line and convert them to textures.  This is done using inheritance and 
-derived object classes to represent the images.  There are regular images
-and there are sprites. This is the regular image class
+Class:cSpriteTextures 
+	Child class inheriting from cRender.  Will be instantiated and implemented.
+Constructors:
+cSpriteTextures ();	default	constructor:
+{
+SDL_Rect * mSpriteClips[SPRITE_TOTAL];
+int hWidth;
+int hHeight;
+SDL_Texture * spriteTexture;
+SDL_Renderer * spriteRenderer;
+int spriteIndex;
+}
+cSpriteTextures (SDL_Texture * tempTexture, SDL_Renderer * tempRenderer);  //Constructor
 
-Input:
-Input includes the command line arguments which take the name of the file 
-and pass it to the SDL library functions.
+cSpriteTextures (cSpriteTextures  & imgCpy);  //CopyConstructor
 
-Output:
-Output includes the SDL window, the SDL surface, and the image.  The first
-4 are generated using typical sdl functions from the sdl library to convert
-the .png images to textures. They are then rendered to the screen.  
-The last two images are sprites on one .png image. This image is converted
-to a texture and then partially rendered once to display the first
-part of it, and then again once more to display the second part of it.
-...................................................................
-DECLARATIONS
-------------
-cSpriteGameLoop();
+cSpriteTextures & operator=(cSpriteTextures  & imgCPY);  //Assignment Operator
 
-Purpose:Class contructor; Initialize the class' private data members.
+virtual ~cSpriteTextures ();   //Destructor
 
-Entry: None
-
-Exit: Set it all to NULL
-
-...................................................................
-cSpriteGameLoop(cSpriteGameLoop & cpy)
-
-Purpose:Copy Constructor
-
-Entry: copy of the object
-
-Exit: returns the same copy 
-...................................................................
-cSpriteGameLoop & operator=(cSpriteGameLoop & opCopy);
-
-Purpose:Class assignment operator.
-
-Entry: copy of the object
-
-Exit: returns the same copy 
-
-...................................................................
-
-~cMainGame()
-
-Purpose:Class destructor.
-
-Entry: None
-
-Exit: None
-
-...................................................................
-void SpriteRender(SDL_Rect* clip, SDL_Texture * tempTexture,  const 
-int tim)
-
-Purpose:Renders Images on sprites by cutting the images to their own 
-dimensions and then rendering those specific dimensions to the screen.
-
-Entry:SDL_Rect* clip:Clip is an array of a  rect that holds the dimensions 
-of a sdl rect SDL_Texture * tempTexture: Texture holds sprite textures 
-const int tim: tim is used as a delayed time tracker
-Exit: Function returns nothing
+------------------------------------------------------------------------------
+Mutators: NONE
+------------------------------------------------------------------------------
+Methods:
+	virtual void Render();
+		Virtual method that inherits from PVBC: cRender
+------------------------------------------------------------------------------
 */
 
 #ifndef CSPRITEGAMELOOP_H
 #define CSPRITEGAMELOOP_H
-#include <SDL.h>
-#include <SDL_image.h>
+
 #include "cRender.h"
-
-
-enum SPRITE_COUNT
+//ENUM
+enum SPRITE_COUNT	//keeps count of sprites
 {
 	SPRITE_FIRST,
 	SPRITE_SECOND,
 	SPRITE_TOTAL
 };
 
-
-class cSpriteTextures : public cRender
+class cSpriteTextures : public cRender	
 {
 public:
-	
-	//Constructors
+	//Constructors:
 	cSpriteTextures(SDL_Texture * tempTexture, SDL_Renderer * tempRenderer);
-	cSpriteTextures(cSpriteTextures & cpy);
-	//Assignment Operator
-	cSpriteTextures & operator=(cSpriteTextures & opCopy);
-	//Destructor
-	virtual ~cSpriteTextures();
-	//Sprite render method
-	virtual void Render();
-	//Mutators
-	
-	
+	cSpriteTextures(cSpriteTextures  & cpy);				//copy constructor
+	cSpriteTextures  & operator=(cSpriteTextures  & opCopy);//Assignment Operator
+	virtual ~cSpriteTextures();								//Destructor
+	//METHODS
+	virtual void Render();									//Sprite render method
 
 private:
-	
-	SDL_Rect * mSpriteClips[2];
-	//counter
-
-	int hWidth;
-	int hHeight;
-	SDL_Texture * SpriteTexture;
-	SDL_Renderer * SpriteRenderer;
-	const int time = 500;
-	
-	int spriteIndex;
+	SDL_Rect * mSpriteClips[SPRITE_TOTAL];	//array of *SDL_Rects that contains dimensions of sprites
+	int hWidth;								//sprite image width
+	int hHeight;							//image height
+	SDL_Texture * spriteTexture;			//Texture containing image
+	SDL_Renderer * spriteRenderer;			//renderer that renders image
+	const int TIME = 500;					//delay on rendering 
+	int spriteIndex;						//index which determines which sprite will be displayed
 };
 #endif

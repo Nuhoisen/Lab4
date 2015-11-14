@@ -89,17 +89,29 @@ Entry: None
 
 Exit: none
 ...................................................................*/
-void cImageTextures::Render()
+void cImageTextures::Render(cImageTextures * image2)
 {
 	SDL_Rect * tempRect = imageRect;
-	for (int i = RENDERWIDTH; i > 0; i--)
+	SDL_Rect * temp2Rect = imageRect;
+	for (int i = 0; i <RENDERWIDTH ; i++)
 	{
 		(tempRect -> x) = i;
 		SDL_RenderClear(imageRenderer);
-		
 		SDL_RenderCopy(imageRenderer, imageTexture, nullptr, tempRect);//SDL_RenderCopy(RENDERER, Texture your loading from, rectangle you're drawing from, rectangle you're drawing to)
+		
+		
+		(temp2Rect->x) = (-RENDERWIDTH + i);
+		SDL_RenderCopy(imageRenderer, image2->imageTexture, nullptr, temp2Rect);
 		SDL_RenderPresent(imageRenderer);
 		SDL_Delay(TIME);
 	}
 }
 
+void cImageTextures::CntrlLoopRender()
+{
+	
+		SDL_RenderClear(imageRenderer);
+		SDL_RenderCopy(imageRenderer, imageTexture, nullptr, nullptr);//SDL_RenderCopy(RENDERER, Texture your loading from, rectangle you're drawing from, rectangle you're drawing to)
+		SDL_RenderPresent(imageRenderer);
+		SDL_Delay(TIME);
+}

@@ -44,9 +44,6 @@
     <ClInclude Include="cGameLoop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="cRender.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

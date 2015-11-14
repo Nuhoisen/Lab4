@@ -14,13 +14,6 @@
       <FileName>cSurfMan.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="cRender" Collapsed="true">
-    <Position X="9.25" Y="3.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
-      <FileName>cRender.h</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="cSpriteTextures" Collapsed="true">
     <Position X="10.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
@@ -31,7 +24,7 @@
   <Class Name="cGameLoop" Collapsed="true">
     <Position X="12.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAEBAAABAAAAwAAAAERAAAAAAAAAggEABCAA=</HashCode>
+      <HashCode>AAAAAAAAAEBAAABAAAAwAAAAERAAAAAAAAAggEABAAA=</HashCode>
       <FileName>cGameLoop.h</FileName>
     </TypeIdentifier>
   </Class>

@@ -47,7 +47,6 @@ Methods:
 #include <SDL.h>
 #include <iostream>
 #include "cSurfMan.h"
-#include "cRender.h"
 #include "cImageTextures.h"
 #include "cspriteTextures.h"
 
@@ -72,8 +71,7 @@ private:
 	//Constant time int for rendering time delays
 	const int TIME = 500;
 	string * files;
-	cRender * renderObject[IMAGE_TOTAL];
-	cImageTextures * image;
+	cImageTextures * image[IMAGE_TOTAL];
 	cSpriteTextures  * sprite;
 	int index;
 };

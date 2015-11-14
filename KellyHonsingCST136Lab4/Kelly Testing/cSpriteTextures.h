@@ -37,7 +37,8 @@ Methods:
 #ifndef CSPRITEGAMELOOP_H
 #define CSPRITEGAMELOOP_H
 
-#include "cRender.h"
+#include <SDL.h>
+
 //ENUM
 enum SPRITE_COUNT	//keeps count of sprites
 {
@@ -46,7 +47,7 @@ enum SPRITE_COUNT	//keeps count of sprites
 	SPRITE_TOTAL
 };
 
-class cSpriteTextures : public cRender	
+class cSpriteTextures 
 {
 public:
 	//Constructors:
@@ -55,7 +56,7 @@ public:
 	cSpriteTextures  & operator=(cSpriteTextures  & opCopy);//Assignment Operator
 	virtual ~cSpriteTextures();								//Destructor
 	//METHODS
-	virtual void Render();									//Sprite render method
+	void Render(int i);									//Sprite render method
 
 private:
 	SDL_Rect * mSpriteClips[SPRITE_TOTAL];	//array of *SDL_Rects that contains dimensions of sprites

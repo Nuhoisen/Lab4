@@ -34,9 +34,8 @@ Exit : None
 cGameLoop::cGameLoop()
 {
 	files = nullptr;
-	image = nullptr;
+	image[IMAGE_TOTAL] = nullptr;
 	sprite = nullptr;
-	renderObject[IMAGE_TOTAL] = nullptr;
 	index = 0;	
 }
 
@@ -52,11 +51,10 @@ Exit : None
 ...................................................................*/
 cGameLoop::cGameLoop(cGameLoop & copy)
 {
-	image = copy.image;
 	files = copy.files;
 	sprite = copy.sprite;
-	for (int i = 0; i <= IMAGE_TOTAL; i++)
-		renderObject[i] = copy.renderObject[i];
+	for (int i = 0; i < IMAGE_TOTAL; i++)
+		image[i] = copy.image[i];
 	index = copy.index;
 }
 
@@ -72,11 +70,10 @@ Exit : invoked object
 ...................................................................*/
 cGameLoop & cGameLoop::operator=(cGameLoop & copy)
 {
-	image = copy.image;
 	files = copy.files;
 	sprite = copy.sprite;
-	for (int i = 0; i <= IMAGE_TOTAL; i++)
-		renderObject[i] = copy.renderObject[i];
+	for (int i = 0; i < IMAGE_TOTAL; i++)
+		image[i]=copy.image[i];
 	index = copy.index;
 
 	return *this;
@@ -95,14 +92,13 @@ Exit : None
 cGameLoop::~cGameLoop()
 {	
 	delete[] files;
-	for (int i = 0; i <= IMAGE_TOTAL; i++)
+	for (int i = 0; i < IMAGE_TOTAL; i++)
 	{
-		delete[] renderObject[i];
-		renderObject[i] = nullptr;
+		delete[] image[i];
+		image[i] = nullptr;
 	}
 	files = nullptr;
-	delete image;
-	image = nullptr;
+	
 	delete sprite;
 	sprite = nullptr;
 	index = 0;
@@ -134,9 +130,9 @@ void cGameLoop::BeginGame()
 			{
 				for (int i = 0; i < IMAGE_TOTAL; i++)
 				{
-					renderObject[i] = new cImageTextures(TextureGetter(i), RendererGetter());
+					image[i]=new cImageTextures(TextureGetter(i), RendererGetter());
 				}
-				renderObject[IMAGE_TOTAL] = new cSpriteTextures(TextureGetter(IMAGE_TOTAL), RendererGetter());
+				sprite = new cSpriteTextures(TextureGetter(IMAGE_TOTAL), RendererGetter());
 				
 				this->AutoGameLoop();
 
@@ -158,33 +154,17 @@ Entry : None
 Exit : None
 ...................................................................*/
 void cGameLoop::AutoGameLoop()
-{	
-	for (int i = 0; i < IMAGE_TOTAL; i++)
-	{
-		renderObject[i]->Render();		//render sprites  
-			
-	}
-	cSpriteTextures  * castText = dynamic_cast<cSpriteTextures *>(renderObject[IMAGE_TOTAL]);	//dynamic cast  used here
-	if (castText != nullptr)
-	{
-		renderObject[IMAGE_TOTAL] = static_cast<cRender *> (castText);	//convert the downcast back up to its base type
-		
-		if (renderObject[IMAGE_TOTAL] != nullptr)
+{
+	bool quit = false;
+	for (int i = 0; i < IMAGE_FOURTH; i++)
 		{
-			renderObject[IMAGE_TOTAL]->Render();		//up casted base object calls its method
-			renderObject[IMAGE_TOTAL]->Render();
-		}
-		else
-		{
-			cout << "\nFailed to cast up!";
-		}
-	}
-	else
-	{
-		cout << "\nFailed to cast down!";
-	}
-}
+			image[i]->Render(image[i+1]);		//render sprites  
 
+		}
+	image[IMAGE_FOURTH]->CntrlLoopRender();
+	
+
+}
 /*
 ...................................................................
 void ControlledGameLoop()
@@ -200,7 +180,7 @@ void cGameLoop::ControlledGameLoop()
 {
 	SDL_Event loop;
 	bool quit = false;
-	renderObject[index]->Render();		//display first image in the array
+	image[index]->CntrlLoopRender();		//display first image in the array
 	while (!quit)
 	{
 		while (SDL_PollEvent(&loop) != 0)
@@ -252,7 +232,7 @@ void cGameLoop::ControlledGameLoop()
 				quit = true;
 			}
 		}
-		renderObject[index]->Render();
+		image[index]->CntrlLoopRender();
 	}
 }
 

@@ -108,13 +108,13 @@ Entry: None
 
 Exit: none
 ...................................................................*/
-void cSpriteTextures::Render()
+void cSpriteTextures::Render(int i)
 {
 	SDL_RenderClear(spriteRenderer);	//clear old surface
-	SDL_RenderCopy(spriteRenderer, spriteTexture, mSpriteClips[spriteIndex], nullptr); //copy texture and renderer
+	SDL_RenderCopy(spriteRenderer, spriteTexture, mSpriteClips[i], nullptr); //copy texture and renderer
 	SDL_RenderPresent(spriteRenderer);	//send to screen
 	SDL_Delay(TIME);	//delay for certain amount of TIME
-	spriteIndex++;	//INCREMENT COUNTER
+		//INCREMENT COUNTER
 }
 
 

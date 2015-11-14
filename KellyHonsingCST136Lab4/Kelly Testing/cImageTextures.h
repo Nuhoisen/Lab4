@@ -36,7 +36,7 @@ virtual void Render();
 #ifndef CIMAGETEXTURES_H
 #define CIMAGETEXTURES_H
 
-#include "cRender.h"
+#include <SDL.h>
 
 enum IMAGE_COUNT
 {
@@ -47,7 +47,7 @@ enum IMAGE_COUNT
 	IMAGE_TOTAL
 };
 
-class cImageTextures  : public cRender
+class cImageTextures  
 {
 public:
 	//Constructors
@@ -58,12 +58,13 @@ public:
 	//Destructor
 	virtual ~cImageTextures();
 	//Render method
-	virtual void Render();
-
+	void Render(cImageTextures * image2);
+	void CntrlLoopRender();
+	const int TIME = 3;				//delay
 private: 
 	SDL_Renderer * imageRenderer;	//renderer
 	SDL_Texture * imageTexture;		//texture
-	const int TIME = 2;				//delay
+
 	SDL_Rect * imageRect;			//renderer cliping size
 	const int RENDERHEIGHT = 480;	//renderer height
 	const int RENDERWIDTH= 640;		//renderer width

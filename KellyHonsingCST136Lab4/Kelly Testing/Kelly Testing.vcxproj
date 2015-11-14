@@ -132,7 +132,6 @@
   <ItemGroup>
     <ClInclude Include="cImageTextures.h" />
     <ClInclude Include="cGameLoop.h" />
-    <ClInclude Include="cRender.h" />
     <ClInclude Include="cSurfMan.h" />
     <ClInclude Include="cSpriteTextures.h" />
   </ItemGroup>

@@ -38,6 +38,9 @@ virtual void Render();
 
 #include <SDL.h>
 
+const int TIME = 1;				//delay
+const int RENDER_HEIGHT = 480;	//renderer height
+const int RENDER_WIDTH = 640;		//renderer width
 enum IMAGE_COUNT
 {
 	IMAGE_FIRST,
@@ -60,13 +63,11 @@ public:
 	//Render method
 	void Render(cImageTextures * image2);
 	void CntrlLoopRender();
-	const int TIME = 3;				//delay
 private: 
 	SDL_Renderer * imageRenderer;	//renderer
 	SDL_Texture * imageTexture;		//texture
 
 	SDL_Rect * imageRect;			//renderer cliping size
-	const int RENDERHEIGHT = 480;	//renderer height
-	const int RENDERWIDTH= 640;		//renderer width
+
 };
 #endif

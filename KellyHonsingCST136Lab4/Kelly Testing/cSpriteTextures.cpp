@@ -113,7 +113,7 @@ void cSpriteTextures::Render(int i)
 	SDL_RenderClear(spriteRenderer);	//clear old surface
 	SDL_RenderCopy(spriteRenderer, spriteTexture, mSpriteClips[i], nullptr); //copy texture and renderer
 	SDL_RenderPresent(spriteRenderer);	//send to screen
-	SDL_Delay(TIME);	//delay for certain amount of TIME
+	SDL_Delay(TIME_RENDER);	//delay for certain amount of TIME
 		//INCREMENT COUNTER
 }
 

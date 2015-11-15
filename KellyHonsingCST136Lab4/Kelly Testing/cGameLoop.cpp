@@ -128,11 +128,14 @@ void cGameLoop::BeginGame()
 			}
 			else
 			{
-				for (int i = 0; i < IMAGE_TOTAL; i++)
+				collidingObj = new cCollisionObj(TextureGetter(0), RendererGetter());
+				int j = 0;
+				for (int i = 1; i <= (IMAGE_TOTAL+1); i++)
 				{
-					image[i]=new cImageTextures(TextureGetter(i), RendererGetter());
+					image[j]=new cImageTextures(TextureGetter(i), RendererGetter());
+					j++;
 				}
-				sprite = new cSpriteTextures(TextureGetter(IMAGE_TOTAL), RendererGetter());
+				
 				
 				this->AutoGameLoop();
 
@@ -156,12 +159,13 @@ Exit : None
 void cGameLoop::AutoGameLoop()
 {
 	bool quit = false;
+	collidingObj->Start();
 	for (int i = 0; i < IMAGE_FOURTH; i++)
 		{
 			image[i]->Render(image[i+1]);		//render sprites  
 
 		}
-	image[IMAGE_FOURTH]->CntrlLoopRender();
+
 	
 
 }

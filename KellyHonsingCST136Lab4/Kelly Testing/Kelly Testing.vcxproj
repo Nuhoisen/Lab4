@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="cCollisionObj.cpp" />
     <ClCompile Include="cImageTextures.cpp" />
     <ClCompile Include="cGameLoop.cpp" />
     <ClCompile Include="cSurfMan.cpp" />
@@ -130,6 +131,7 @@
     <ClCompile Include="cSpriteTextures.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cCollisionObj.h" />
     <ClInclude Include="cImageTextures.h" />
     <ClInclude Include="cGameLoop.h" />
     <ClInclude Include="cSurfMan.h" />
@@ -139,6 +141,7 @@
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\..\Downloads\dot.png" />
     <Image Include="AlienGameImages\spritesheet.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

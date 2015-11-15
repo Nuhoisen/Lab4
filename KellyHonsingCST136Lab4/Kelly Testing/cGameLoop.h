@@ -48,10 +48,11 @@ Methods:
 #include <iostream>
 #include "cSurfMan.h"
 #include "cImageTextures.h"
-#include "cspriteTextures.h"
-
+#include "cSpriteTextures.h"
+#include "cCollisionObj.h"
 using std::cout;
 using std::cin;
+
 
 class cGameLoop  :public cSurfMan
 {
@@ -69,10 +70,11 @@ public:
 	bool Retry();
 private:
 	//Constant time int for rendering time delays
-	const int TIME = 500;
+	
 	string * files;
 	cImageTextures * image[IMAGE_TOTAL];
 	cSpriteTextures  * sprite;
+	cCollisionObj * collidingObj;
 	int index;
 };
 #endif

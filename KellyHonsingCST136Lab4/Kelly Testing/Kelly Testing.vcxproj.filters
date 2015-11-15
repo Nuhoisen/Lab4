@@ -30,6 +30,9 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cCollisionObj.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cSurfMan.h">
@@ -44,12 +47,18 @@
     <ClInclude Include="cGameLoop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="cCollisionObj.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="AlienGameImages\spritesheet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\..\Downloads\dot.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

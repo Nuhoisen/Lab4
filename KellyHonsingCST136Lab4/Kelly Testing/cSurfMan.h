@@ -106,8 +106,8 @@ using std::cout;
 using std::cin;
 using std::string;
 
-const int WIDTH = 640;
-const int HEIGHT = 480;
+const int WIDTH = 640;		//Renderer Width
+const int HEIGHT = 480;		//Renderer Height
 //ENUM
 enum PATH_COUNT	//keeps count of image paths
 {

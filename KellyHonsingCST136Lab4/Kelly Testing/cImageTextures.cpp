@@ -19,8 +19,8 @@ cImageTextures::cImageTextures(SDL_Texture * tempTexture, SDL_Renderer * tempRen
 	imageRect = new SDL_Rect;
 	imageRect -> x = 0;
 	imageRect -> y = 0;
-	imageRect -> w = RENDERWIDTH;
-	imageRect -> h = RENDERHEIGHT;
+	imageRect -> w = RENDER_WIDTH;
+	imageRect -> h = RENDER_HEIGHT;
 }
 
 /*
@@ -92,17 +92,17 @@ Exit: none
 void cImageTextures::Render(cImageTextures * image2)
 {
 	SDL_Rect * tempRect = imageRect;
-	SDL_Rect * temp2Rect = imageRect;
-	for (int i = 0; i <RENDERWIDTH ; i++)
+	SDL_Rect * temp2Rect = imageRect;													//its okay for the tempRects to be assigned to the same address because they just overwrite their x values with the new index
+	for (int i = 0; i <RENDER_WIDTH ; i++)
 	{
 		(tempRect -> x) = i;
 		SDL_RenderClear(imageRenderer);
 		SDL_RenderCopy(imageRenderer, imageTexture, nullptr, tempRect);//SDL_RenderCopy(RENDERER, Texture your loading from, rectangle you're drawing from, rectangle you're drawing to)
 		
 		
-		(temp2Rect->x) = (-RENDERWIDTH + i);
-		SDL_RenderCopy(imageRenderer, image2->imageTexture, nullptr, temp2Rect);
-		SDL_RenderPresent(imageRenderer);
+		(temp2Rect->x) = (-RENDER_WIDTH + i);											//rect that has coordinants so that the right side of the texture renders first
+		SDL_RenderCopy(imageRenderer, image2->imageTexture, nullptr, temp2Rect);		//renders following image using temp2Rects Coordinates 
+		SDL_RenderPresent(imageRenderer);												//both images get rendered at the same time
 		SDL_Delay(TIME);
 	}
 }

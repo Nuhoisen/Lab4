@@ -195,8 +195,7 @@ SDL_Texture* cSurfMan::LoadSurface(std::string path)
 		cout << "Unable to load image, SDL Error: %s\n" << SDL_GetError();
 	}
 	else
-	{
-		
+	{	
 		tempTexture = SDL_CreateTextureFromSurface(mRenderer, loadedSurface);//Convert surface to texture
 		if (tempTexture == nullptr)
 		{

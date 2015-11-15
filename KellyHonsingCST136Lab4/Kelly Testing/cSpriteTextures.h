@@ -39,6 +39,7 @@ Methods:
 
 #include <SDL.h>
 
+const int TIME_RENDER = 500;					//delay on rendering 
 //ENUM
 enum SPRITE_COUNT	//keeps count of sprites
 {
@@ -64,7 +65,7 @@ private:
 	int hHeight;							//image height
 	SDL_Texture * spriteTexture;			//Texture containing image
 	SDL_Renderer * spriteRenderer;			//renderer that renders image
-	const int TIME = 500;					//delay on rendering 
+	
 	int spriteIndex;						//index which determines which sprite will be displayed
 };
 #endif

@@ -123,7 +123,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="cCollision.cpp" />
+    <ClCompile Include="cCollision.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="cCollisionObj.cpp" />
     <ClCompile Include="cImageTextures.cpp" />
     <ClCompile Include="cGameLoop.cpp" />

@@ -38,7 +38,7 @@ virtual void Render();
 
 #include <SDL.h>
 
-const int TIME = 1;				//delay
+const int TIME = 2;				//delay
 const int RENDER_HEIGHT = 480;	//renderer height
 const int RENDER_WIDTH = 640;		//renderer width
 enum IMAGE_COUNT

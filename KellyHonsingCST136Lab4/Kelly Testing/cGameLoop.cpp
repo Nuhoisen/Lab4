@@ -99,8 +99,8 @@ cGameLoop::~cGameLoop()
 	}
 	files = nullptr;
 	
-	delete sprite;
-	sprite = nullptr;
+	delete collidingObj;
+	collidingObj = nullptr;
 	index = 0;
 }
 
@@ -163,11 +163,7 @@ void cGameLoop::AutoGameLoop()
 	for (int i = 0; i < IMAGE_FOURTH; i++)
 		{
 			image[i]->Render(image[i+1]);		//render sprites  
-
 		}
-
-	
-
 }
 /*
 ...................................................................

@@ -1,12 +1,16 @@
 /*Kelly Honsinger
 Date Created:10/18/2015
-Last Modification Date 11/9/2015
-Lab Number: 5
+Last Modification Date:11/16/2015
+Lab Number: 6
 File Name: cImageTextures.h
 -----------------------------------------------------------------------------
 
 Class:cImageTextures
-	Child class of cRender. Will be instantiated and implemented
+	Class that renders images to screen.  It renders in two ways.  From the automatic loop and the 
+	controlled loop.  In the auto loop it displays the images in quick sucession across the screen
+	in a way that prevents all gaps of the renderer showing.  In the controlled loop it lets the user
+	scroll through the images using the arrow keys.
+-----------------------------------------------------------------------------
 Constructors:
 cImageTextures();	default	constructor:
 {
@@ -40,8 +44,9 @@ virtual void Render();
 
 const int TIME = 2;				//delay
 const int RENDER_HEIGHT = 480;	//renderer height
-const int RENDER_WIDTH = 640;		//renderer width
-enum IMAGE_COUNT
+const int RENDER_WIDTH = 640;	//renderer width
+
+enum IMAGE_COUNT				//enum keeps track of the total amount of images
 {
 	IMAGE_FIRST,
 	IMAGE_SECOND,
@@ -53,21 +58,20 @@ enum IMAGE_COUNT
 class cImageTextures  
 {
 public:
-	//Constructors
-	cImageTextures(SDL_Texture * tempTexture, SDL_Renderer * tempRenderer);
-	cImageTextures(cImageTextures & imgCpy);
-	//Assignment Operator
-	cImageTextures& operator=(cImageTextures & imgCPY);
-	//Destructor
-	virtual ~cImageTextures();
-	//Render method
-	void Render(cImageTextures * image2);
-	void CntrlLoopRender();
-private: 
-	SDL_Renderer * imageRenderer;	//renderer
-	SDL_Texture * imageTexture;		//texture
+	//CONSTRUCTORS
+	cImageTextures(SDL_Texture * tempTexture, SDL_Renderer * tempRenderer);	//constructor
+	cImageTextures(cImageTextures & imgCpy);								//copy constructor
+	cImageTextures& operator=(cImageTextures & imgCPY);						//assignment operator
+	//DESTRUCTOR
+	virtual ~cImageTextures();												//virutal destructor
+	//METHODS
+	void Render(cImageTextures * image2);									//Render method displays images in automatic loop
+	void CntrlLoopRender();													//Render method for images in controlled loop
 
-	SDL_Rect * imageRect;			//renderer cliping size
+private: 
+	SDL_Renderer * mImageRenderer;											//renderer
+	SDL_Texture * mImageTexture;												//texture
+	SDL_Rect * mImageRect;													//renderer cliping size
 
 };
 #endif

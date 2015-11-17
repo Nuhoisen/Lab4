@@ -14,13 +14,13 @@ Exit: None
 ...................................................................*/
 cImageTextures::cImageTextures(SDL_Texture * tempTexture, SDL_Renderer * tempRenderer)
 {
-	imageTexture= tempTexture;
-	imageRenderer = tempRenderer;
-	imageRect = new SDL_Rect;
-	imageRect -> x = 0;
-	imageRect -> y = 0;
-	imageRect -> w = RENDER_WIDTH;
-	imageRect -> h = RENDER_HEIGHT;
+	mImageTexture= tempTexture;
+	mImageRenderer = tempRenderer;
+	mImageRect = new SDL_Rect;
+	mImageRect -> x = 0;
+	mImageRect -> y = 0;
+	mImageRect -> w = RENDER_WIDTH;
+	mImageRect -> h = RENDER_HEIGHT;
 }
 
 /*
@@ -35,9 +35,9 @@ Exit: None
 ...................................................................*/
 cImageTextures::cImageTextures(cImageTextures & imgCpy)
 {
-	imageTexture = imgCpy.imageTexture;
-	imageRenderer = imgCpy.imageRenderer;
-	imageRect = imgCpy.imageRect;
+	mImageTexture = imgCpy.mImageTexture;
+	mImageRenderer = imgCpy.mImageRenderer;
+	mImageRect = imgCpy.mImageRect;
 }
 
 /*
@@ -52,9 +52,9 @@ Exit: Invoking object
 ...................................................................*/
 cImageTextures& cImageTextures::operator=(cImageTextures& imgCPY)
 {
-	imageTexture = imgCPY.imageTexture;
-	imageRenderer = imgCPY.imageRenderer;
-	imageRect = imgCPY.imageRect;
+	mImageTexture = imgCPY.mImageTexture;
+	mImageRenderer = imgCPY.mImageRenderer;
+	mImageRect = imgCPY.mImageRect;
 
 	return * this;
 }
@@ -67,51 +67,61 @@ Purpose:destructor; Deletes all dynamically allocated memory and sets pointers t
 
 Entry: None
 
-Exit: none
+Exit: None
 ...................................................................*/
 cImageTextures::~cImageTextures()
 {
-	delete imageRect;
-	imageRect = nullptr;
-	SDL_DestroyTexture(imageTexture);
-	imageTexture = nullptr;
-	SDL_DestroyRenderer(imageRenderer);
-	imageRenderer = nullptr;
+	delete mImageRect;
+	mImageRect = nullptr;
+	SDL_DestroyTexture(mImageTexture);
+	mImageTexture = nullptr;
+	SDL_DestroyRenderer(mImageRenderer);
+	mImageRenderer = nullptr;
 }
 
 /*
 ...................................................................
 void Render()
 
-Purpose:Method that takes the image texture and renderer and prints them to screen.
+Purpose:Method that takes the two image textures and prints them to screen.
 
-Entry: None
+Entry: The invoking object passes an object of the following image so that they can both 
+be rendered at the sametime on the same screen.
 
-Exit: none
+Exit: None
 ...................................................................*/
 void cImageTextures::Render(cImageTextures * image2)
 {
-	SDL_Rect * tempRect = imageRect;
-	SDL_Rect * temp2Rect = imageRect;													//its okay for the tempRects to be assigned to the same address because they just overwrite their x values with the new index
+	SDL_Rect * tempRect = mImageRect;
+	SDL_Rect * temp2Rect = mImageRect;													//its okay for the tempRects to be assigned to the same address because they just overwrite their x values with the new index
 	for (int i = 0; i <RENDER_WIDTH ; i++)
 	{
 		(tempRect -> x) = i;
-		SDL_RenderClear(imageRenderer);
-		SDL_RenderCopy(imageRenderer, imageTexture, nullptr, tempRect);//SDL_RenderCopy(RENDERER, Texture your loading from, rectangle you're drawing from, rectangle you're drawing to)
+		SDL_RenderClear(mImageRenderer);
+		SDL_RenderCopy(mImageRenderer, mImageTexture, nullptr, tempRect);					//SDL_RenderCopy(RENDERER, Texture your loading from, rectangle you're drawing from, rectangle you're drawing to)
 		
 		
 		(temp2Rect->x) = (-RENDER_WIDTH + i);											//rect that has coordinants so that the right side of the texture renders first
-		SDL_RenderCopy(imageRenderer, image2->imageTexture, nullptr, temp2Rect);		//renders following image using temp2Rects Coordinates 
-		SDL_RenderPresent(imageRenderer);												//both images get rendered at the same time
+		SDL_RenderCopy(mImageRenderer, image2->mImageTexture, nullptr, temp2Rect);		//renders following image using temp2Rects Coordinates 
+		SDL_RenderPresent(mImageRenderer);												//both images get rendered at the same time
 		SDL_Delay(TIME);
 	}
 }
 
+/*
+...................................................................
+void CntrlLoopRender()
+
+Purpose:Method that takes the image texture and renderer and prints them from the user controlled loop.
+
+Entry: None
+
+Exit: None
+...................................................................*/
 void cImageTextures::CntrlLoopRender()
-{
-	
-		SDL_RenderClear(imageRenderer);
-		SDL_RenderCopy(imageRenderer, imageTexture, nullptr, nullptr);//SDL_RenderCopy(RENDERER, Texture your loading from, rectangle you're drawing from, rectangle you're drawing to)
-		SDL_RenderPresent(imageRenderer);
+{	
+		SDL_RenderClear(mImageRenderer);
+		SDL_RenderCopy(mImageRenderer, mImageTexture, nullptr, nullptr);					//SDL_RenderCopy(RENDERER, Texture your loading from, rectangle you're drawing from, rectangle you're drawing to)
+		SDL_RenderPresent(mImageRenderer);
 		SDL_Delay(TIME);
 }

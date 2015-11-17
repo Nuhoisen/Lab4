@@ -1,14 +1,15 @@
 /*Kelly Honsinger
 Date Created:10/18/2015
-Last Modification Date 11/9/2015
-Lab Number: 5
+Last Modification Date: 11/16/2015
+Lab Number: 6
 File Name: cGameLoop.h
 -----------------------------------------------------------------------------
 
 Class:cMainGame
-	Child class of abstract base class: cSurfMan.  It implements it's functions and uses its data members.
-	It's also the class used to start the game from the main.
-
+	This Class is the class that iniates the game loop from the main.  It's method: BeginGame is called to start
+	the game. It is the class that contains the aggregates and the composites.  Surfman object is the composite
+	and CollisionObj and ImageTexture objects are the aggregates.
+-----------------------------------------------------------------------------
 Constructors: 
 	cGameLoop();	default	constructor:
 		{
@@ -41,6 +42,7 @@ Methods:
 		This method asks the user if they want to go again
 ------------------------------------------------------------------------------
 */
+
 #ifndef CMAINGAME_H
 #define CMAINGAME_H
 
@@ -48,11 +50,10 @@ Methods:
 #include <iostream>
 #include "cSurfMan.h"
 #include "cImageTextures.h"
-#include "cSpriteTextures.h"
 #include "cCollisionObj.h"
+
 using std::cout;
 using std::cin;
-
 
 class cGameLoop  
 {
@@ -60,21 +61,20 @@ public:
 	//CONSTRUCTORS
 	cGameLoop();							//Constructor Declaration
 	cGameLoop(char *argv[], int argc);		//explicitly defined constructor
-	~cGameLoop();					//Destructor Declaration
+	~cGameLoop();							//Destructor Declaration
 	cGameLoop(cGameLoop &copy);				//copy constructor
 	cGameLoop & operator=(cGameLoop &copy);	//Assignment Operator
 	//METHODS
-	void BeginGame();						
-	void AutoGameLoop();
-	void ControlledGameLoop();
-	bool Retry();
+	void BeginGame();						//iniates game
+	void AutoGameLoop();					//loop renders collision objects and automatic scrolling images
+	void ControlledGameLoop();				//loop that the user controls
+	bool Retry();							//method that prompts the user to go again
+
 private:
-	//Constant time int for rendering time delays
-	
-	string * files;
-	cSurfMan * surfaceObject;
-	cImageTextures * image[IMAGE_TOTAL];
-	cCollisionObj * collidingObj;
-	int index;
+	string * mFiles;							//string the command line args are copied into 
+	cSurfMan * mSurfaceObject;				//cSurfman object is used as an example of composition here
+	cImageTextures * mImage[IMAGE_TOTAL];	//cImageTextures are used as an example of aggregation
+	cCollisionObj * mCollidingObj;			//cCollisionObj is used as an example of aggregation
+	int mIndex;								//index is used to keep track of controlled user loop 
 };
 #endif

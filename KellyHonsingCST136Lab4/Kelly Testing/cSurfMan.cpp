@@ -128,8 +128,7 @@ bool cSurfMan::Init(string * path)
 			}
 			else
 			{	
-				SDL_SetRenderDrawColor(mRenderer, 0x00, 0x00, 
-					0x00, 0x00);  //(UNIT8 red, UNIT8 green, UNIT8 blue, UNIT8 Alpha) sets the renderer color to black
+				SDL_SetRenderDrawColor(mRenderer, 0x00, 0x00, 0x00, 0x00);  //(UNIT8 red, UNIT8 green, UNIT8 blue, UNIT8 Alpha) sets the renderer color to black
 				int imgFlags = IMG_INIT_PNG;
 				if (!(IMG_Init(imgFlags) & imgFlags))
 				{
@@ -174,7 +173,6 @@ bool cSurfMan::LoadMedia(string * path)
 }
 
 /*...........................................................................................
-
 SDL_Texture * LoadSurface(string surfacePath);
 
 Purpose: Function executed within LoadMedia function that takes the file directory and
@@ -223,11 +221,11 @@ void cSurfMan::Close()
 {
 	for (int i = 0; i < PATH_TOTAL; i++)
 	{
-		SDL_DestroyTexture(mTexture[i]);
+		SDL_DestroyTexture(mTexture[i]);	//destroy texture
 		mTexture[i] = nullptr;
 	}
-	//destroy window and renderer
-	SDL_DestroyRenderer(mRenderer);
+	
+	SDL_DestroyRenderer(mRenderer); //destroy window and renderer
 	mRenderer = nullptr;
 
 	SDL_DestroyWindow(mWindow);
@@ -239,7 +237,7 @@ void cSurfMan::Close()
 /*...........................................................................................
 SDL_Renderer * RendererGetter();
 
-Purpose: Getter that retrieves the window data member
+Purpose: Mutator: Getter that retrieves the window data member
 
 Entry: None
 
@@ -248,19 +246,18 @@ Exit: Returns the window member
 */
 SDL_Renderer * cSurfMan::RendererGetter()
 {
-	return mRenderer;
+	return mRenderer;		//returns the address of mRenderer
 }
 
 /*...........................................................................................
 SDL_Texture * TextureGetter(int index);
 
-Purpose: Getter that retrieves the window data member
+Purpose: Mutator: Getter that retrieves the window data member
 
 Entry: int index; index of texture needed
 
 Exit: Returns the window member
 ...........................................................................................
-
 */
 SDL_Texture * cSurfMan::TextureGetter(int index)
 {

@@ -1,18 +1,13 @@
 /*Kelly Honsinger
 Date Created:10/18/2015
-Last Modification Date 11/9/2015
-Lab Number: 5
+Last Modification Date: 11/16/2015
+Lab Number: 6
 File Name: cGameLoop.h
 -----------------------------------------------------------------------------
 
 Class:cSurfMan
-	This is the abstract base class.  It's never instantiated and it's used by it's child class: cGameLoop.
-	Its methods iniate the SDL libraries and assign the image directories to textures so that they can be rendered later.
-
-Constructors:
-cSurfMan(cSurfMan &copy);				Copy constructor
-cSurfMan & operator=(cSurfMan &copy);	Assignment Operator
-
+	This class is used to iniated the sdl libraries and load the images from the directory.
+	It also acts as a composite object for cGameLoop.
 .........................................................................................
 CONSTRUCTOR & DESTRUCTOR
 .........................................................................................
@@ -24,6 +19,11 @@ Entry: None. Sets all to null.
 
 Exit: None.
 .........................................................................................
+
+Constructors:
+cSurfMan(cSurfMan &copy);				Copy constructor
+cSurfMan & operator=(cSurfMan &copy);	Assignment Operator
+-----------------------------------------------------------------------------------------
 
 ~cSurfMan()
 
@@ -46,7 +46,7 @@ arguments, and in this case the image file's directory and name.
 Exit: bool pass: is a variable that returns true if everything succeeds in the method.
 ...........................................................................................
 
-bool LoadMedia( string * path);
+bool LoadMedia(string * path);
 
 Purpose:Loads the appropriate Bmp file to correspond with the correct key. Uses an enum to 
 simplify the data.
@@ -93,7 +93,6 @@ Exit: Returns the window member
 ...........................................................................................
 */
 
-
 #ifndef CSURFMAN_H
 #define CSURFMAN_H
 
@@ -108,8 +107,8 @@ using std::string;
 
 const int WIDTH = 640;		//Renderer Width
 const int HEIGHT = 480;		//Renderer Height
-//ENUM
-enum PATH_COUNT	//keeps count of image paths
+
+enum PATH_COUNT	//ENUM keeps count of image paths
 {
 	PATH_DEFAULT,
 	PATH_FIRST,
@@ -136,10 +135,10 @@ public:
 	//MUTATORS
 	SDL_Renderer * RendererGetter();		//returns renderer
 	SDL_Texture * TextureGetter(int index);	//returns texture
+
 private:
 	SDL_Window * mWindow;					//WINDOW
 	SDL_Renderer * mRenderer;				//RENDERER
 	SDL_Texture * mTexture[PATH_TOTAL];		//array of textures
-
 };
 #endif 

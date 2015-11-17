@@ -5,10 +5,12 @@ Lab Number: 5
 File Name: main.cpp
 
 Overview:
-This Program is the start to a game I'm making.  This game will display a sequence of images 
-on the screen in random order.  A 'special' image will be amoungst these that the user must pay attention to.
-Once the image loop stops, the user will be able to look through all the images again in a user controlled game loop 
-to find the two images that preceeded and proceeded the 'special' image.  
+This Program is in the intermediate stage of becoming a game.  This game will display a sequence of images 
+on the screen in random order.  A 'special' image will be amoungst these that the user must pay attention to. To
+trigger the loop the user must direct a dot so that it collides with a start image.  After that a image loop will start that
+will display a sequence of images in random order.  My "new feature" to my game is the ability to render the images in sync with eachother
+so that there aren't any renderer gaps on the screen.  This is done by rendering seperate objects at the same time.  Contrary to popular belief,
+no sprite sheet is being scrolled through here, seperate objects are.  Aggregrates and a composite can be found in the GameLoop class.
 
 Input: 
 The program takes its input via the command line arguments.
@@ -22,7 +24,7 @@ int main(int argc, char * argv[])
 {
 	cGameLoop StartGame(argv, argc);	//object that is passed command line args
 
-	StartGame.BeginGame();	//object calls method to start game
+	StartGame.BeginGame();				//object calls method to start game
 	
 	return 0;
 }

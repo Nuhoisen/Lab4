@@ -13,13 +13,13 @@ Exit: None
 ...................................................................*/
 cGameLoop::cGameLoop(char *argv[], int argc)
 {
-	files = new string[argc];
+	mFiles = new string[argc];
 	for (int count = 0; count < argc; count++)
 	{
-		files[count] = argv[count];
+		mFiles[count] = argv[count];
 	}
-	surfaceObject = new cSurfMan;
-	index = 0;
+	mSurfaceObject = new cSurfMan;
+	mIndex = 0;
 }
 
 /*
@@ -34,10 +34,10 @@ Exit : None
 ...................................................................*/
 cGameLoop::cGameLoop()
 {
-	files = nullptr;
-	image[IMAGE_TOTAL] = nullptr;
+	mFiles = nullptr;
+	mImage[IMAGE_TOTAL] = nullptr;
 
-	index = 0;	
+	mIndex = 0;	
 }
 
 /*
@@ -52,10 +52,10 @@ Exit : None
 ...................................................................*/
 cGameLoop::cGameLoop(cGameLoop & copy)
 {
-	files = copy.files;
+	mFiles = copy.mFiles;
 	for (int i = 0; i < IMAGE_TOTAL; i++)
-		image[i] = copy.image[i];
-	index = copy.index;
+		mImage[i] = copy.mImage[i];
+	mIndex = copy.mIndex;
 }
 
 /*
@@ -70,10 +70,10 @@ Exit : invoked object
 ...................................................................*/
 cGameLoop & cGameLoop::operator=(cGameLoop & copy)
 {
-	files = copy.files;
+	mFiles = copy.mFiles;
 	for (int i = 0; i < IMAGE_TOTAL; i++)
-		image[i]=copy.image[i];
-	index = copy.index;
+		mImage[i]=copy.mImage[i];
+	mIndex = copy.mIndex;
 
 	return *this;
 }
@@ -90,18 +90,18 @@ Exit : None
 ...................................................................*/
 cGameLoop::~cGameLoop()
 {	
-	delete[] files;
-	files = nullptr;
-	index = 0;
-	delete surfaceObject;
-	surfaceObject = nullptr;
+	delete[] mFiles;
+	mFiles = nullptr;
+	delete mSurfaceObject;
+	mSurfaceObject = nullptr;
+	mIndex = 0;
 }
 
 /*
 ...................................................................
 void BeginGame()
 
-Purpose:Iniates Game; Calls all methods in the game and creates a pvbc object to hold derived objects.
+Purpose:Iniates Game; Calls all methods and instantiates aggregrate objects from within it.
 
 Entry : None
 
@@ -110,39 +110,38 @@ Exit : None
 void cGameLoop::BeginGame()
 {
 	do {
-		if (!surfaceObject->Init(files))
+		if (!mSurfaceObject->Init(mFiles))
 		{
 			cout << "Initialization Failed\n";
 		}
 		else {
-			if (!surfaceObject->LoadMedia(files))
+			if (!mSurfaceObject->LoadMedia(mFiles))
 			{
 				cout << "failed to load";
 			}
 			else
-			{
-				
+			{				
 				int imageIndex = 0;
-				for (int i = 2; i < (IMAGE_TOTAL+2); i++)
+				for (int i = PATH_SECOND; i < (PATH_TOTAL); i++)
 				{
-					image[imageIndex]=new cImageTextures(surfaceObject->TextureGetter(i), surfaceObject->RendererGetter());
+					mImage[imageIndex]=new cImageTextures(mSurfaceObject->TextureGetter(i), mSurfaceObject->RendererGetter());
 					imageIndex++;
 				}	
 				
-				collidingObj = new cCollisionObj(surfaceObject->TextureGetter(0), surfaceObject->RendererGetter());
+				mCollidingObj = new cCollisionObj(mSurfaceObject->TextureGetter(0), mSurfaceObject->RendererGetter());
 				
 				this->AutoGameLoop();
 
 				this->ControlledGameLoop();
 			}
-			surfaceObject->Close();
+			mSurfaceObject->Close();
 			for (int i = 0; i < IMAGE_TOTAL; i++)	
 			{
-				delete[] image[i];
-				image[i] = nullptr;
+				delete[] mImage[i];
+				mImage[i] = nullptr;
 			}			
-			delete collidingObj;
-			collidingObj = nullptr;			
+			delete mCollidingObj;
+			mCollidingObj = nullptr;			
 		}
 	} while (this->Retry());
 }
@@ -160,10 +159,12 @@ Exit : None
 void cGameLoop::AutoGameLoop()
 {
 	bool quit = false;
-	collidingObj->Start(surfaceObject->TextureGetter(1));
+	
+	mCollidingObj->Start(mSurfaceObject->TextureGetter(1));
+	
 	for (int i = 0; i < IMAGE_FOURTH; i++)
 		{
-			image[i]->Render(image[i+1]);		//render sprites  
+			mImage[i]->Render(mImage[i+1]);		//render sprites  
 		}
 }
 /*
@@ -181,18 +182,18 @@ void cGameLoop::ControlledGameLoop()
 {
 	SDL_Event loop;
 	bool quit = false;
-	image[index]->CntrlLoopRender();		//display first image in the array
+	mImage[mIndex]->CntrlLoopRender();		//display first image in the array
 	while (!quit)
 	{
 		while (SDL_PollEvent(&loop) != 0)
 		{
-			if (loop.type == SDL_KEYDOWN && index <= IMAGE_FIRST)
+			if (loop.type == SDL_KEYDOWN && mIndex <= IMAGE_FIRST)
 			{
-				index = IMAGE_FIRST;
+				mIndex = IMAGE_FIRST;
 				switch (loop.key.keysym.sym)
 				{
 				case SDLK_RIGHT:
-					index++;
+					mIndex++;
 					break;
 				case SDLK_LEFT:
 					break;
@@ -200,15 +201,15 @@ void cGameLoop::ControlledGameLoop()
 					break;
 				}
 			}
-			else if (loop.type == SDL_KEYDOWN && index >= IMAGE_FOURTH)
+			else if (loop.type == SDL_KEYDOWN && mIndex >= IMAGE_FOURTH)
 			{
-				index = IMAGE_FOURTH;
+				mIndex = IMAGE_FOURTH;
 				switch (loop.key.keysym.sym)
 				{
 				case SDLK_RIGHT:
 					break;
 				case SDLK_LEFT:
-					index--;
+					mIndex--;
 					break;
 				default:
 					break;
@@ -219,10 +220,10 @@ void cGameLoop::ControlledGameLoop()
 				switch (loop.key.keysym.sym)
 				{
 				case SDLK_RIGHT:
-					index++;
+					mIndex++;
 					break;
 				case SDLK_LEFT:
-					index--;
+					mIndex--;
 					break;
 				default:
 					break;
@@ -233,7 +234,7 @@ void cGameLoop::ControlledGameLoop()
 				quit = true;
 			}
 		}
-		image[index]->CntrlLoopRender();
+		mImage[mIndex]->CntrlLoopRender();
 	}
 }
 

@@ -54,13 +54,13 @@ using std::cout;
 using std::cin;
 
 
-class cGameLoop  :public cSurfMan
+class cGameLoop  
 {
 public: 
 	//CONSTRUCTORS
 	cGameLoop();							//Constructor Declaration
 	cGameLoop(char *argv[], int argc);		//explicitly defined constructor
-	virtual ~cGameLoop();					//Destructor Declaration
+	~cGameLoop();					//Destructor Declaration
 	cGameLoop(cGameLoop &copy);				//copy constructor
 	cGameLoop & operator=(cGameLoop &copy);	//Assignment Operator
 	//METHODS
@@ -72,9 +72,9 @@ private:
 	//Constant time int for rendering time delays
 	
 	string * files;
+	cSurfMan * surfaceObject;
 	cImageTextures * image[IMAGE_TOTAL];
-	cSpriteTextures  * sprite;
-	cCollisionObj * collidingObj[2];
+	cCollisionObj * collidingObj;
 	int index;
 };
 #endif

@@ -140,5 +140,6 @@ private:
 	SDL_Window * mWindow;					//WINDOW
 	SDL_Renderer * mRenderer;				//RENDERER
 	SDL_Texture * mTexture[PATH_TOTAL];		//array of textures
+
 };
 #endif 

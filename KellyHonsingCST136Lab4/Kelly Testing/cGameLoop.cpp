@@ -18,6 +18,7 @@ cGameLoop::cGameLoop(char *argv[], int argc)
 	{
 		files[count] = argv[count];
 	}
+	surfaceObject = new cSurfMan;
 	index = 0;
 }
 
@@ -35,7 +36,7 @@ cGameLoop::cGameLoop()
 {
 	files = nullptr;
 	image[IMAGE_TOTAL] = nullptr;
-	sprite = nullptr;
+
 	index = 0;	
 }
 
@@ -52,7 +53,6 @@ Exit : None
 cGameLoop::cGameLoop(cGameLoop & copy)
 {
 	files = copy.files;
-	sprite = copy.sprite;
 	for (int i = 0; i < IMAGE_TOTAL; i++)
 		image[i] = copy.image[i];
 	index = copy.index;
@@ -71,7 +71,6 @@ Exit : invoked object
 cGameLoop & cGameLoop::operator=(cGameLoop & copy)
 {
 	files = copy.files;
-	sprite = copy.sprite;
 	for (int i = 0; i < IMAGE_TOTAL; i++)
 		image[i]=copy.image[i];
 	index = copy.index;
@@ -92,18 +91,10 @@ Exit : None
 cGameLoop::~cGameLoop()
 {	
 	delete[] files;
-	for (int i = 0; i < IMAGE_TOTAL; i++)
-	{
-		delete[] image[i];
-		image[i] = nullptr;
-	}
 	files = nullptr;
-	for (int i = 0; i < 2; i++)
-	{
-		delete[] collidingObj[i];
-		collidingObj[i] = nullptr;
-	}
 	index = 0;
+	delete surfaceObject;
+	surfaceObject = nullptr;
 }
 
 /*
@@ -119,34 +110,39 @@ Exit : None
 void cGameLoop::BeginGame()
 {
 	do {
-		if (!this->Init(files))
+		if (!surfaceObject->Init(files))
 		{
 			cout << "Initialization Failed\n";
 		}
 		else {
-			if (!this->LoadMedia(files))
+			if (!surfaceObject->LoadMedia(files))
 			{
 				cout << "failed to load";
 			}
 			else
 			{
-				for (int i = 0; i < 2; i++)
-				{
-					collidingObj[i] = new cCollisionObj(TextureGetter(i), RendererGetter());
-				}
-				int imageIndex = 0;
-				for (int i = 2; i <= (IMAGE_TOTAL+2); i++)
-				{
-					image[imageIndex]=new cImageTextures(TextureGetter(i), RendererGetter());
-					imageIndex++;
-				}
 				
+				int imageIndex = 0;
+				for (int i = 2; i < (IMAGE_TOTAL+2); i++)
+				{
+					image[imageIndex]=new cImageTextures(surfaceObject->TextureGetter(i), surfaceObject->RendererGetter());
+					imageIndex++;
+				}	
+				
+				collidingObj = new cCollisionObj(surfaceObject->TextureGetter(0), surfaceObject->RendererGetter());
 				
 				this->AutoGameLoop();
 
 				this->ControlledGameLoop();
 			}
-			this->Close();
+			surfaceObject->Close();
+			for (int i = 0; i < IMAGE_TOTAL; i++)	
+			{
+				delete[] image[i];
+				image[i] = nullptr;
+			}			
+			delete collidingObj;
+			collidingObj = nullptr;			
 		}
 	} while (this->Retry());
 }
@@ -164,7 +160,7 @@ Exit : None
 void cGameLoop::AutoGameLoop()
 {
 	bool quit = false;
-	collidingObj[0]->Start(TextureGetter(1));
+	collidingObj->Start(surfaceObject->TextureGetter(1));
 	for (int i = 0; i < IMAGE_FOURTH; i++)
 		{
 			image[i]->Render(image[i+1]);		//render sprites  

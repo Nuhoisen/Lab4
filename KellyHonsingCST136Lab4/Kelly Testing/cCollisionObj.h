@@ -13,7 +13,7 @@ class cCollisionObj
 {
 public:
 	cCollisionObj(SDL_Texture *tempTexture, SDL_Renderer * tempRenderer);
-	~cCollisionObj(); //heey
+	virtual ~cCollisionObj(); //heey
 	void HandleEvent(SDL_Event& collideEvent);
 	bool CheckCollision();
 	void RenderColliders(SDL_Texture* renderButton);

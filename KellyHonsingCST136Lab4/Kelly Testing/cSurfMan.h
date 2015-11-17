@@ -116,6 +116,7 @@ enum PATH_COUNT	//keeps count of image paths
 	PATH_SECOND,
 	PATH_THIRD,
 	PATH_FOURTH,
+	PATH_FIFTH,
 	PATH_TOTAL
 };
 

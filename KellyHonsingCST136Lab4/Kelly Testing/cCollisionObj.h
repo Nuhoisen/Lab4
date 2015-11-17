@@ -16,9 +16,9 @@ public:
 	~cCollisionObj(); //heey
 	void HandleEvent(SDL_Event& collideEvent);
 	bool CheckCollision();
-	void RenderColliders();
-	void Move();
-	void Start();
+	void RenderColliders(SDL_Texture* renderButton);
+	bool Move();
+	void Start(SDL_Texture* button);
 
 private:
 	SDL_Texture * mDotTexture;

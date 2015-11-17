@@ -2,7 +2,7 @@
 
 
 
-cCollisionObj::cCollisionObj(SDL_Texture *tempTexture, SDL_Renderer * tempRenderer )
+cCollisionObj::cCollisionObj(SDL_Texture * tempTexture, SDL_Renderer * tempRenderer )
 {
 	mDotTexture = tempTexture;
 	mCollisionRenderer = tempRenderer;
@@ -18,8 +18,8 @@ cCollisionObj::cCollisionObj(SDL_Texture *tempTexture, SDL_Renderer * tempRender
 	
 	mRectCoordinates.x = SCREEN_WIDTH / 2;
 	mRectCoordinates.y = SCREEN_WIDTH / 2;
-	mRectCoordinates.h = 100;
-	mRectCoordinates.w = 100;
+	mRectCoordinates.h = 130;
+	mRectCoordinates.w = 145;
 }
 
 cCollisionObj::~cCollisionObj()
@@ -40,13 +40,13 @@ cCollisionObj::~cCollisionObj()
 }
 
 
-void cCollisionObj::Start()
+void cCollisionObj::Start(SDL_Texture* button)
 {
 	SDL_Event collisionEvent;
 	bool quit = false;
+	bool collide = false;
 
-
-	while (!quit)
+	while (!quit && !collide)
 	{
 
 		while (SDL_PollEvent(&collisionEvent) != 0)
@@ -57,9 +57,9 @@ void cCollisionObj::Start()
 				quit = true;
 			}
 			this->HandleEvent(collisionEvent);
-			this->Move();	
+			collide= this->Move();	
 		}
-		this->RenderColliders();
+		this->RenderColliders(button);
 	}
 }
 
@@ -69,7 +69,6 @@ void cCollisionObj::HandleEvent(SDL_Event& collideEvent)
 
 	if (collideEvent.type == SDL_KEYDOWN && collideEvent.key.repeat == 0)
 	{
-
 		switch (collideEvent.key.keysym.sym)
 		{
 		case SDLK_UP: 
@@ -89,7 +88,6 @@ void cCollisionObj::HandleEvent(SDL_Event& collideEvent)
 
 	else if (collideEvent.type == SDL_KEYUP && collideEvent.key.repeat == 0)
 	{
-
 		switch (collideEvent.key.keysym.sym)
 		{
 		case SDLK_UP:
@@ -109,7 +107,7 @@ void cCollisionObj::HandleEvent(SDL_Event& collideEvent)
 }
 
 
-void cCollisionObj::Move()
+bool cCollisionObj::Move()
 {
 
 	mDotPosX += mDotVelX;
@@ -118,20 +116,36 @@ void cCollisionObj::Move()
 
 	if ((mDotPosX < 0) || (mDotPosX + DOT_WIDTH > SCREEN_WIDTH) || CheckCollision())
 	{
-
-		mDotPosX -= mDotVelX;
-		mDotDimensions.x = mDotPosX;
+		if (CheckCollision())
+		{
+			mDotPosX -= mDotVelX;
+			mDotDimensions.x = mDotPosX;
+			return true;
+		}
+		else
+		{
+			mDotPosX -= mDotVelX;
+			mDotDimensions.x = mDotPosX;
+			return false;
+		}
 	}
-
 	mDotPosY += mDotVelY;
 	mDotDimensions.y = mDotPosY;
 
-
 	if ((mDotPosY < 0) || (mDotPosY + DOT_HEIGHT > SCREEN_HEIGHT) || CheckCollision())
 	{
-
-		mDotPosY -= mDotVelY;
-		mDotDimensions.y = mDotPosY;
+		if (CheckCollision())
+		{
+			mDotPosY -= mDotVelY;
+			mDotDimensions.y = mDotPosY;
+			return true;
+		}
+		else
+		{
+			mDotPosY -= mDotVelY;
+			mDotDimensions.y = mDotPosY;
+			return false;
+		}
 	}
 }
 
@@ -182,13 +196,13 @@ bool cCollisionObj::CheckCollision()
 	return true;
 }
 
-void cCollisionObj::RenderColliders()
+void cCollisionObj::RenderColliders(SDL_Texture* renderButton)
 {
 	
 	SDL_SetRenderDrawColor(mCollisionRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderClear(mCollisionRenderer);
 	SDL_SetRenderDrawColor(mCollisionRenderer, 0x00, 0x00, 0x00, 0xFF);
-	SDL_RenderDrawRect(mCollisionRenderer, &mRectCoordinates);
+	SDL_RenderCopy(mCollisionRenderer, renderButton, nullptr, &mRectCoordinates);
 	
 	SDL_Rect renderQuad = { mDotPosX, mDotPosY, DOT_WIDTH, DOT_WIDTH };
 

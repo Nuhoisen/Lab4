@@ -98,9 +98,11 @@ cGameLoop::~cGameLoop()
 		image[i] = nullptr;
 	}
 	files = nullptr;
-	
-	delete collidingObj;
-	collidingObj = nullptr;
+	for (int i = 0; i < 2; i++)
+	{
+		delete[] collidingObj[i];
+		collidingObj[i] = nullptr;
+	}
 	index = 0;
 }
 
@@ -128,12 +130,15 @@ void cGameLoop::BeginGame()
 			}
 			else
 			{
-				collidingObj = new cCollisionObj(TextureGetter(0), RendererGetter());
-				int j = 0;
-				for (int i = 1; i <= (IMAGE_TOTAL+1); i++)
+				for (int i = 0; i < 2; i++)
 				{
-					image[j]=new cImageTextures(TextureGetter(i), RendererGetter());
-					j++;
+					collidingObj[i] = new cCollisionObj(TextureGetter(i), RendererGetter());
+				}
+				int imageIndex = 0;
+				for (int i = 2; i <= (IMAGE_TOTAL+2); i++)
+				{
+					image[imageIndex]=new cImageTextures(TextureGetter(i), RendererGetter());
+					imageIndex++;
 				}
 				
 				
@@ -159,7 +164,7 @@ Exit : None
 void cGameLoop::AutoGameLoop()
 {
 	bool quit = false;
-	collidingObj->Start();
+	collidingObj[0]->Start(TextureGetter(1));
 	for (int i = 0; i < IMAGE_FOURTH; i++)
 		{
 			image[i]->Render(image[i+1]);		//render sprites  

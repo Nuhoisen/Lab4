@@ -123,9 +123,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="cCollision.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="cCollisionObj.cpp" />
     <ClCompile Include="cImageTextures.cpp" />
     <ClCompile Include="cGameLoop.cpp" />
@@ -134,7 +131,6 @@
     <ClCompile Include="cSpriteTextures.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="cCollision.h" />
     <ClInclude Include="cCollisionObj.h" />
     <ClInclude Include="cImageTextures.h" />
     <ClInclude Include="cGameLoop.h" />
@@ -146,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\Downloads\dot.png" />
+    <Image Include="AlienGameImages\CollisionStart.png" />
     <Image Include="AlienGameImages\spritesheet.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

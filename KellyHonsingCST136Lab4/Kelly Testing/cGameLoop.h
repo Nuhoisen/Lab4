@@ -74,7 +74,7 @@ private:
 	string * files;
 	cImageTextures * image[IMAGE_TOTAL];
 	cSpriteTextures  * sprite;
-	cCollisionObj * collidingObj;
+	cCollisionObj * collidingObj[2];
 	int index;
 };
 #endif

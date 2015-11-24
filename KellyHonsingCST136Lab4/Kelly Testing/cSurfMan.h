@@ -98,13 +98,14 @@ Exit: Returns the window member
 
 #include <iostream>
 #include <string>
+#include <queue>
 #include <SDL.h>
 #include <SDL_image.h>
 
 using std::cout;
 using std::cin;
 using std::string;
-
+using std::queue;
 const int WIDTH = 640;		//Renderer Width
 const int HEIGHT = 480;		//Renderer Height
 
@@ -119,7 +120,7 @@ enum PATH_COUNT	//ENUM keeps count of image paths
 	PATH_TOTAL
 };
 
-class cSurfMan
+class cSurfMan 
 {
 public:
 	//CONSTRUCTORS

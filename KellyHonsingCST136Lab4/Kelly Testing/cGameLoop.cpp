@@ -4,32 +4,25 @@
 /*
 ...................................................................
 cGameLoop(char *argv[], int argc)
-
 Purpose:Class contructor; Initialize the class' private data members.
-
 Entry: char *argv[], int argc
-
 Exit: None
 ...................................................................*/
 cGameLoop::cGameLoop(char *argv[], int argc)
 {
-	mFiles = new string[argc];
-	for (int count = 0; count < argc; count++)
+	mFiles = new string[argc];						//my other use of the STL libraries is the string class
+	for (int count = 0; count < argc; count++)		//I convert my command line arguments here to a string copy so that they dont get corrupted.
 	{
-		mFiles[count] = argv[count];
+		mFiles[count] = argv[count];				//The constructor simple takes in the pointer char array and the array size and converts it to a string array.
 	}
-	mSurfaceObject = new cSurfMan;
 	mIndex = 0;
 }
 
 /*
 ...................................................................
 cGameLoop()
-
 Purpose:contructor; Initialize the class' private data members.
-
 Entry : None
-
 Exit : None
 ...................................................................*/
 cGameLoop::cGameLoop()
@@ -37,17 +30,14 @@ cGameLoop::cGameLoop()
 	mFiles = nullptr;
 	mImage[IMAGE_TOTAL] = nullptr;
 
-	mIndex = 0;	
+	mIndex = 0;
 }
 
 /*
 ...................................................................
 cGameLoop(cGameLoop & copy)
-
 Purpose:Copy contructor; Initialize the class' private data members to the passed copy.
-
 Entry : cGameLoop & copy
-
 Exit : None
 ...................................................................*/
 cGameLoop::cGameLoop(cGameLoop & copy)
@@ -61,18 +51,15 @@ cGameLoop::cGameLoop(cGameLoop & copy)
 /*
 ...................................................................
 cGameLoop & operator=(cGameLoop &copy);
-
 Purpose:assignment contructor; Initialize the class' private data members to the passed copy.
-
 Entry : cGameLoop & copy; copy object to initialize to.
-
 Exit : invoked object
 ...................................................................*/
 cGameLoop & cGameLoop::operator=(cGameLoop & copy)
 {
 	mFiles = copy.mFiles;
 	for (int i = 0; i < IMAGE_TOTAL; i++)
-		mImage[i]=copy.mImage[i];
+		mImage[i] = copy.mImage[i];
 	mIndex = copy.mIndex;
 
 	return *this;
@@ -81,101 +68,92 @@ cGameLoop & cGameLoop::operator=(cGameLoop & copy)
 /*
 ...................................................................
 ~cGameLoop()
-
 Purpose:destructor; Deletes all dynamically allocated memory and sets pointers to null.
-
 Entry : None
-
 Exit : None
 ...................................................................*/
 cGameLoop::~cGameLoop()
-{	
+{
 	delete[] mFiles;
 	mFiles = nullptr;
-	delete mSurfaceObject;
-	mSurfaceObject = nullptr;
 	mIndex = 0;
 }
 
 /*
 ...................................................................
 void BeginGame()
-
 Purpose:Iniates Game; Calls all methods and instantiates aggregrate objects from within it.
-
 Entry : None
-
 Exit : None
 ...................................................................*/
 void cGameLoop::BeginGame()
 {
+	vector<bool> vecBools(3);			//here is my example of a vector template being used
+	for (int i = 0; i < 3; i++)			//It is a vector of 3 bool types set to true.
+	{
+		vecBools[i] = true;			
+	}
 	do {
-		if (!mSurfaceObject->Init(mFiles))
-		{
+		if (vecBools.at(0) != this->Init(mFiles))		//I use this vector and the .at() function to check if the sdl libraries correctly loaded
+		{												//Here string mFiles is passed into function Init() of cSurfman Class.
 			cout << "Initialization Failed\n";
 		}
 		else {
-			if (!mSurfaceObject->LoadMedia(mFiles))
-			{
+			if (vecBools.at(1) != this->LoadMedia(mFiles))	//I use this vector and the .at() function to check if my images correctly loaded
+			{												//Here string mFiles is passed into function LoadMedia() of cSurfman Class.
 				cout << "failed to load";
 			}
 			else
-			{				
+			{
 				int imageIndex = 0;
 				for (int i = PATH_SECOND; i < (PATH_TOTAL); i++)
 				{
-					mImage[imageIndex]=new cImageTextures(mSurfaceObject->TextureGetter(i), mSurfaceObject->RendererGetter());
+					mImage[imageIndex] = new cImageTextures(this->TextureGetter(i), this->RendererGetter());
 					imageIndex++;
-				}	
-				
-				mCollidingObj = new cCollisionObj(mSurfaceObject->TextureGetter(0), mSurfaceObject->RendererGetter());
-				
+				}
+
+				mCollidingObj = new cCollisionObj(this->TextureGetter(0), this->RendererGetter());
+
 				this->AutoGameLoop();
 
 				this->ControlledGameLoop();
 			}
-			mSurfaceObject->Close();
-			for (int i = 0; i < IMAGE_TOTAL; i++)	
+			this->Close();
+			for (int i = 0; i < IMAGE_TOTAL; i++)
 			{
 				delete[] mImage[i];
 				mImage[i] = nullptr;
-			}			
+			}
 			delete mCollidingObj;
-			mCollidingObj = nullptr;			
+			mCollidingObj = nullptr;
 		}
-	} while (this->Retry());
+	} while (vecBools.at(2) == this->Retry());		//I then use it at the end to check whether the user wants to go again.
 }
 
 /*
 ...................................................................
 void AutoGameLoop()
-
 Purpose:First Game Loop; Starts automatic display of images.
-
 Entry : None
-
 Exit : None
 ...................................................................*/
 void cGameLoop::AutoGameLoop()
 {
 	bool quit = false;
-	
-	mCollidingObj->Start(mSurfaceObject->TextureGetter(1));
-	
+
+	mCollidingObj->Start(this->TextureGetter(1));
+
 	for (int i = 0; i < IMAGE_FOURTH; i++)
-		{
-			mImage[i]->Render(mImage[i+1]);		//render sprites  
-		}
+	{
+		mImage[i]->Render(mImage[i + 1]);		//render sprites  
+	}
 }
 /*
 ...................................................................
 void ControlledGameLoop()
-
 Purpose:Second Game Loop; Starts user controlled display of images.
 The user can controll the images using the arrow right and arrow left keys.
-
 Entry : None
-
 Exit : None
 ...................................................................*/
 void cGameLoop::ControlledGameLoop()
@@ -241,11 +219,8 @@ void cGameLoop::ControlledGameLoop()
 /*
 ...................................................................
 bool Retry()
-
 Purpose:Method that prompts the user if they want to go again
-
 Entry : None
-
 Exit : bool again;  if true the game will run again; otherwise it will stop
 ...................................................................*/
 bool cGameLoop::Retry()

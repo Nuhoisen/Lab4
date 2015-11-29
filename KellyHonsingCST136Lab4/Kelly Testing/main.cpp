@@ -24,7 +24,7 @@ int main(int argc, char * argv[])
 {
 	
 	cGameLoop StartGame(argv, argc);	//object that is passed command line args
-
+	StartGame.RandNumGen(argv, argc);
 	StartGame.BeginGame();				//object calls method to start game
 	
 	return 0;

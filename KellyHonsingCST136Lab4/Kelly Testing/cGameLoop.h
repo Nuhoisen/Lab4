@@ -50,6 +50,8 @@ This method asks the user if they want to go again
 #include "cSurfMan.h"
 #include "cImageTextures.h"
 #include "cCollisionObj.h"
+#include "cRandArray.h"
+
 
 using std::cout;
 using std::cin;

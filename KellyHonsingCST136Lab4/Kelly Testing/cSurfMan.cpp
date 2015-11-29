@@ -185,27 +185,23 @@ Exit: Returns SDL_Texture pointer.
 */
 SDL_Texture* cSurfMan::LoadSurface(std::string path)
 {	
-	SDL_Texture *tempTexture= nullptr;
+	SDL_Texture * tempTexture= nullptr;
 
 	SDL_Surface* loadedSurface = IMG_Load(path.c_str());//Load image at specified path
-	queue<SDL_Surface> surfaceQueue;					//Here is another stl template; this ones called queue. it holds SDL_Surfaces
-	surfaceQueue.push(*loadedSurface);					//Here the sdl_surface loadsurface is "pushed" into the queue.
-
-
-	if (&surfaceQueue.front() == nullptr)			//since surfaceQueue isnt a point I must reference the address of the first element of it to check if its null
+	if (loadedSurface == nullptr)			//since surfaceQueue isnt a point I must reference the address of the first element of it to check if its null
 	{
 		cout << "Unable to load image, SDL Error: %s\n" << SDL_GetError();
 	}
 	else
 	{	
-		tempTexture = SDL_CreateTextureFromSurface(mRenderer, &surfaceQueue.front());//Convert surface to texture;  Im able to pass the first element of the queue into this function
-		if (&surfaceQueue.front() == nullptr)		//since surfaceQueue isnt a point I must reference the address of the first element of it to check if its null
+		tempTexture = SDL_CreateTextureFromSurface(mRenderer, loadedSurface);//Convert surface to texture;  Im able to pass the first element of the queue into this function
+		if (loadedSurface == nullptr)		//since surfaceQueue isnt a point I must reference the address of the first element of it to check if its null
 		{
 			cout << "Unable to create texture from image! SDL Error:"
 				<< SDL_GetError();
 		}
 
-		surfaceQueue.pop();							//"pop" removes the "oldest" element. IE: the first one created in the queue.
+							
 		SDL_FreeSurface(loadedSurface); //Get rid of old loaded surfaces
 		loadedSurface = nullptr;
 	}

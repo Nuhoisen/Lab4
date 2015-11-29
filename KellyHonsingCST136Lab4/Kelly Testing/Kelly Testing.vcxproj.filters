@@ -30,7 +30,7 @@
     <ClCompile Include="cCollisionObj.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Projects\OldGameDesignFiles\cRandArray.cpp">
+    <ClCompile Include="cRandArrayV2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -47,7 +47,7 @@
     <ClInclude Include="cCollisionObj.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Projects\OldGameDesignFiles\cRandArray.h">
+    <ClInclude Include="cRandArrayV2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

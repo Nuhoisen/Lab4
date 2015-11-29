@@ -8,7 +8,7 @@ Purpose:Class contructor; Initialize the class' private data members.
 Entry: char *argv[], int argc
 Exit: None
 ...................................................................*/
-cGameLoop::cGameLoop(char *argv[], int argc)
+cGameLoop::cGameLoop(int argc, char * argv[])
 {
 	mFiles = new string[argc];						//my other use of the STL libraries is the string class
 	for (int count = 0; count < argc; count++)		//I convert my command line arguments here to a string copy so that they dont get corrupted.
@@ -16,6 +16,7 @@ cGameLoop::cGameLoop(char *argv[], int argc)
 		mFiles[count] = argv[count];				//The constructor simple takes in the pointer char array and the array size and converts it to a string array.
 	}
 	mIndex = 0;
+
 }
 
 /*
@@ -64,6 +65,12 @@ cGameLoop & cGameLoop::operator=(cGameLoop & copy)
 
 	return *this;
 }
+//Assignment operator redefines imageFiles' strings
+cGameLoop & cGameLoop::operator=(string *letsDOit)
+{
+	mFiles = letsDOit;
+	return *this;
+}
 
 /*
 ...................................................................
@@ -86,49 +93,53 @@ Purpose:Iniates Game; Calls all methods and instantiates aggregrate objects from
 Entry : None
 Exit : None
 ...................................................................*/
-void cGameLoop::BeginGame()
+void cGameLoop::BeginGame(int argc)
 {
-	vector<bool> vecBools(3);			//here is my example of a vector template being used
-	for (int i = 0; i < 3; i++)			//It is a vector of 3 bool types set to true.
-	{
-		vecBools[i] = true;			
-	}
+	
 	do {
-		if (vecBools.at(0) != this->Init(mFiles))		//I use this vector and the .at() function to check if the sdl libraries correctly loaded
+		*this = this->RandFileGen(PATH_FIFTH, argc, mFiles);	//this randomizes the objects and assigns it to the class
+
+		if (!this->Init(mFiles))		//I use this vector and the .at() function to check if the sdl libraries correctly loaded
 		{												//Here string mFiles is passed into function Init() of cSurfman Class.
 			cout << "Initialization Failed\n";
 		}
 		else {
-			if (vecBools.at(1) != this->LoadMedia(mFiles))	//I use this vector and the .at() function to check if my images correctly loaded
+			if (!this->LoadMedia(mFiles))	//I use this vector and the .at() function to check if my images correctly loaded
 			{												//Here string mFiles is passed into function LoadMedia() of cSurfman Class.
 				cout << "failed to load";
 			}
 			else
 			{
 				int imageIndex = 0;
-				for (int i = PATH_SECOND; i < (PATH_TOTAL); i++)
+				for (int i = PATH_DEFAULT; i < (PATH_FIFTH); i++)
 				{
 					mImage[imageIndex] = new cImageTextures(this->TextureGetter(i), this->RendererGetter());
 					imageIndex++;
 				}
 
-				mCollidingObj = new cCollisionObj(this->TextureGetter(0), this->RendererGetter());
+				mCollidingObj = new cCollisionObj(this->TextureGetter(4), this->RendererGetter());
 
 				this->AutoGameLoop();
 
 				this->ControlledGameLoop();
 			}
 			this->Close();
-			for (int i = 0; i < IMAGE_TOTAL; i++)
-			{
-				delete[] mImage[i];
-				mImage[i] = nullptr;
-			}
-			delete mCollidingObj;
-			mCollidingObj = nullptr;
+			this->DeleteObjs(*mImage, mCollidingObj);
 		}
-	} while (vecBools.at(2) == this->Retry());		//I then use it at the end to check whether the user wants to go again.
+	} while (this->Retry());		//I then use it at the end to check whether the user wants to go again.
 }
+
+void cGameLoop::DeleteObjs(cImageTextures * imageObjs, cCollisionObj * collisionObjs)
+{
+	for (int i = 0; i < IMAGE_TOTAL; i++)
+	{
+		delete[] mImage[i];
+		mImage[i] = nullptr;
+	}
+	delete mCollidingObj;
+	mCollidingObj = nullptr;
+}
+
 
 /*
 ...................................................................
@@ -141,7 +152,7 @@ void cGameLoop::AutoGameLoop()
 {
 	bool quit = false;
 
-	mCollidingObj->Start(this->TextureGetter(1));
+	mCollidingObj->Start(this->TextureGetter(5));
 
 	for (int i = 0; i < IMAGE_FOURTH; i++)
 	{

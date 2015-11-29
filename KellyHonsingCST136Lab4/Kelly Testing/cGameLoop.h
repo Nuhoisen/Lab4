@@ -50,7 +50,7 @@ This method asks the user if they want to go again
 #include "cSurfMan.h"
 #include "cImageTextures.h"
 #include "cCollisionObj.h"
-#include "cRandArray.h"
+#include "cRandArrayV2.h"
 
 
 using std::cout;
@@ -58,25 +58,28 @@ using std::cin;
 using std::vector;
 using std::queue;
 
-class cGameLoop :public cSurfMan
+class cGameLoop :public cSurfMan , public cRandArrayV2
 {
 public:
 	//CONSTRUCTORS
 	cGameLoop();							//Constructor Declaration
-	cGameLoop(char *argv[], int argc);		//explicitly defined constructor
+	cGameLoop(int argc, char * argv[]);		//explicitly defined constructor
 	~cGameLoop();							//Destructor Declaration
 	cGameLoop(cGameLoop &copy);				//copy constructor
 	cGameLoop & operator=(cGameLoop &copy);	//Assignment Operator
-											//METHODS
-	void BeginGame();						//iniates game
+	cGameLoop & operator=(string * letsDOit);
+	//METHODS
+	void BeginGame(int argc);						//iniates game
 	void AutoGameLoop();					//loop renders collision objects and automatic scrolling images
 	void ControlledGameLoop();				//loop that the user controls
+	void DeleteObjs(cImageTextures * imageObjs, cCollisionObj * collisionObjs);
 	bool Retry();							//method that prompts the user to go again
 
 private:
 	string * mFiles;							//string the command line args are copied into 
 	cImageTextures * mImage[IMAGE_TOTAL];	//cImageTextures are used as an example of aggregation
 	cCollisionObj * mCollidingObj;			//cCollisionObj is used as an example of aggregation
+	
 	int mIndex;								//index is used to keep track of controlled user loop 
 };
 #endif
